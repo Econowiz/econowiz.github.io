@@ -18,6 +18,9 @@ dist-ssr
 .env.production
 .env.development
 
+# Serena AI tool (private development tool)
+.serena/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -28,3 +31,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Security - Additional sensitive files
+*.key
+*.pem
+*.p12
+*.pfx
+config.json
+secrets.json
