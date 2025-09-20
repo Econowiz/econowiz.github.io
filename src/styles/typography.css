@@ -23,7 +23,7 @@
 
   /* Small headings - h5, h6 */
   .small-heading {
-    @apply text-base text-white-1 mb-2 font-normal;
+    @apply font-heading text-base text-white-1 mb-2 font-normal;
   }
 
   /* Body text variants */
@@ -41,7 +41,7 @@
 
   /* Interactive elements */
   .interactive-title {
-    @apply text-lg text-white-1 font-medium mb-3;
+    @apply font-heading text-heading-sm text-white-1 font-medium mb-3;
   }
 
   /* Navigation and UI text */

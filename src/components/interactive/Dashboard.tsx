@@ -140,7 +140,7 @@ const DashboardWidgetComponent: React.FC<DashboardWidgetComponentProps> = ({ wid
           >
             {formatValue(metricConfig.value, metricConfig.format)}
           </div>
-          <div className="text-white-1 font-medium text-sm mb-1">
+          <div className="body-small text-white-1 mb-1">
             {metricConfig.label}
           </div>
           {metricConfig.trend && (
@@ -178,7 +178,7 @@ const DashboardWidgetComponent: React.FC<DashboardWidgetComponentProps> = ({ wid
       return (
         <div className={`bg-eerie-black-2 p-4 rounded-lg border border-jet ${getSizeClasses(size)}`}>
           <div className="text-center text-light-gray">
-            <div className="text-sm">No data available</div>
+            <div className="body-small">No data available</div>
           </div>
         </div>
       )
@@ -188,7 +188,7 @@ const DashboardWidgetComponent: React.FC<DashboardWidgetComponentProps> = ({ wid
     if (chartConfig.library === 'recharts' && 'chartType' in chartConfig && 'xAxisKey' in chartConfig && 'yAxisKey' in chartConfig) {
       return (
         <div className={`bg-eerie-black-2 p-4 rounded-lg border border-jet hover:border-gray-600 transition-all duration-200 ${getSizeClasses(size)}`}>
-          <h4 className="text-white-1 font-medium mb-3 text-sm">{widget.title}</h4>
+          <h4 className="card-title mb-3">{widget.title}</h4>
           <RechartsWrapper
             config={{
               library: 'recharts',
@@ -213,7 +213,7 @@ const DashboardWidgetComponent: React.FC<DashboardWidgetComponentProps> = ({ wid
   return (
     <div className={`bg-eerie-black-2 p-4 rounded-lg border border-jet ${getSizeClasses(size)}`}>
       <div className="text-center text-light-gray">
-        <div className="text-sm">Widget type not supported</div>
+        <div className="body-small">Widget type not supported</div>
       </div>
     </div>
   )
