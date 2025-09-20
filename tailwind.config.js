@@ -7,7 +7,27 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
+        sans: ['Atkinson Hyperlegible', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        heading: ['Fraunces', 'serif'],
+      },
+      // Typography Scale - Consistent heading hierarchy
+      fontSize: {
+        // Existing sizes
+        'vcard-1': '24px',
+        'vcard-2': '18px',
+        'vcard-3': '17px',
+        'vcard-4': '16px',
+        'vcard-5': '15px',
+        'vcard-6': '14px',
+        'vcard-7': '13px',
+        'vcard-8': '11px',
+        // New consistent hierarchy
+        'heading-hero': ['3.5rem', { lineHeight: '1.1' }], // 56px - Hero titles
+        'heading-xl': ['3rem', { lineHeight: '1.2' }], // 48px - Page titles
+        'heading-lg': ['2.25rem', { lineHeight: '1.3' }], // 36px - Section headers
+        'heading-md': ['1.875rem', { lineHeight: '1.4' }], // 30px - Subsections
+        'heading-sm': ['1.5rem', { lineHeight: '1.4' }], // 24px - Card titles
+        'heading-xs': ['1.25rem', { lineHeight: '1.5' }], // 20px - Small headings
       },
       colors: {
         // vCard color palette from original CSS
@@ -35,16 +55,16 @@ export default {
         'vcard-1': '-4px 8px 24px hsla(0, 0%, 0%, 0.25)',
         'vcard-2': '0 16px 30px hsla(0, 0%, 0%, 0.25)',
       },
-      fontSize: {
-        'vcard-1': '24px',
-        'vcard-2': '18px',
-        'vcard-3': '17px',
-        'vcard-4': '16px',
-        'vcard-5': '15px',
-        'vcard-6': '14px',
-        'vcard-7': '13px',
-        'vcard-8': '11px',
+      // Consistent spacing system
+      spacing: {
+        'section-lg': '4rem', // 64px - Large section spacing
+        'section-md': '3rem', // 48px - Medium section spacing  
+        'section-sm': '2rem', // 32px - Small section spacing
+        'content-lg': '1.5rem', // 24px - Large content spacing
+        'content-md': '1rem', // 16px - Medium content spacing
+        'content-sm': '0.75rem', // 12px - Small content spacing
       },
+
     },
   },
   plugins: [
