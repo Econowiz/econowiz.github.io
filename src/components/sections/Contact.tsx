@@ -296,7 +296,7 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 p-3 rounded-lg text-sm"
+                className="body-small bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 p-3 rounded-lg"
                 role="alert"
               >
                 {errorMessage}
@@ -307,7 +307,7 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-orange-500/20 border border-orange-500/30 text-orange-400 p-3 rounded-lg text-sm"
+                className="body-small bg-orange-500/20 border border-orange-500/30 text-orange-400 p-3 rounded-lg"
                 role="alert"
               >
                 Your message couldn't be sent. Please ensure your message is appropriate and try again.

@@ -475,7 +475,7 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
               <div key={index} className="bg-eerie-black-2 p-4 rounded-lg border border-jet">
                 <div className="display-number text-orange-yellow">{metric.value}</div>
                 <div className="body-normal text-white-1 mb-1">{metric.label}</div>
-                <div className="nav-text text-light-gray">{metric.description}</div>
+                <div className="body-small text-light-gray">{metric.description}</div>
               </div>
             ))}
           </div>
