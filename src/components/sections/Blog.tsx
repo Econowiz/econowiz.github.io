@@ -26,6 +26,82 @@ interface BlogIndex {
   tags: string[]
 }
 
+// Fallback blog posts (module-level constant for stable reference)
+const fallbackBlogPosts: BlogPost[] = [
+  {
+    id: 'future-of-financial-analytics',
+    title: 'The Future of Financial Analytics in 2025',
+    category: 'Finance',
+    date: '2024-12-15',
+    excerpt: 'How AI and machine learning are transforming traditional financial analysis and what professionals need to know.',
+    tags: ['AI', 'Finance', 'Analytics'],
+    author: 'Your Name',
+    readTime: '5 min read',
+    featured: true,
+    image: '/api/placeholder/300/200'
+  },
+  {
+    id: 'power-bi-dashboards',
+    title: 'Building Effective Financial Dashboards with Power BI',
+    category: 'Analytics',
+    date: '2024-11-28',
+    excerpt: 'Best practices for creating executive-level financial dashboards that drive decision-making.',
+    tags: ['Power BI', 'Dashboards', 'Analytics'],
+    author: 'Your Name',
+    readTime: '7 min read',
+    featured: true,
+    image: '/api/placeholder/300/200'
+  },
+  {
+    id: 'python-real-estate',
+    title: 'Python for Real Estate Investment Analysis',
+    category: 'Investment',
+    date: '2024-10-12',
+    excerpt: 'Leveraging Python libraries for comprehensive real estate market analysis and ROI calculations.',
+    tags: ['Python', 'Real Estate', 'Investment'],
+    author: 'Your Name',
+    readTime: '8 min read',
+    featured: false,
+    image: '/api/placeholder/300/200'
+  },
+  {
+    id: 'excel-vba-automation',
+    title: 'Advanced Excel VBA for Financial Process Automation',
+    category: 'Automation',
+    date: '2024-09-25',
+    excerpt: 'How to automate complex financial processes and save thousands in operational costs.',
+    tags: ['Excel', 'VBA', 'Automation'],
+    author: 'Your Name',
+    readTime: '6 min read',
+    featured: false,
+    image: '/api/placeholder/300/200'
+  },
+  {
+    id: 'southeast-asia-operations',
+    title: 'Navigating Cross-Border Financial Operations in Southeast Asia',
+    category: 'International',
+    date: '2024-08-18',
+    excerpt: 'Insights from managing international financial operations and regulatory compliance across cultures.',
+    tags: ['International', 'Southeast Asia', 'Operations'],
+    author: 'Your Name',
+    readTime: '9 min read',
+    featured: false,
+    image: '/api/placeholder/300/200'
+  },
+  {
+    id: 'data-driven-ma',
+    title: 'Data-Driven M&A: Analytics for Better Deal Outcomes',
+    category: 'M&A',
+    date: '2024-07-30',
+    excerpt: 'Using advanced analytics and modeling to improve merger and acquisition decision-making processes.',
+    tags: ['M&A', 'Analytics', 'Data-Driven'],
+    author: 'Your Name',
+    readTime: '10 min read',
+    featured: false,
+    image: '/api/placeholder/300/200'
+  }
+]
+
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
@@ -54,81 +130,6 @@ const Blog = () => {
     loadBlogPosts()
   }, [])
 
-  // Fallback blog posts (your current hardcoded data)
-  const fallbackBlogPosts: BlogPost[] = [
-    {
-      id: 'future-of-financial-analytics',
-      title: 'The Future of Financial Analytics in 2025',
-      category: 'Finance',
-      date: '2024-12-15',
-      excerpt: 'How AI and machine learning are transforming traditional financial analysis and what professionals need to know.',
-      tags: ['AI', 'Finance', 'Analytics'],
-      author: 'Your Name',
-      readTime: '5 min read',
-      featured: true,
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 'power-bi-dashboards',
-      title: 'Building Effective Financial Dashboards with Power BI',
-      category: 'Analytics',
-      date: '2024-11-28',
-      excerpt: 'Best practices for creating executive-level financial dashboards that drive decision-making.',
-      tags: ['Power BI', 'Dashboards', 'Analytics'],
-      author: 'Your Name',
-      readTime: '7 min read',
-      featured: true,
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 'python-real-estate',
-      title: 'Python for Real Estate Investment Analysis',
-      category: 'Investment',
-      date: '2024-10-12',
-      excerpt: 'Leveraging Python libraries for comprehensive real estate market analysis and ROI calculations.',
-      tags: ['Python', 'Real Estate', 'Investment'],
-      author: 'Your Name',
-      readTime: '8 min read',
-      featured: false,
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 'excel-vba-automation',
-      title: 'Advanced Excel VBA for Financial Process Automation',
-      category: 'Automation',
-      date: '2024-09-25',
-      excerpt: 'How to automate complex financial processes and save thousands in operational costs.',
-      tags: ['Excel', 'VBA', 'Automation'],
-      author: 'Your Name',
-      readTime: '6 min read',
-      featured: false,
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 'southeast-asia-operations',
-      title: 'Navigating Cross-Border Financial Operations in Southeast Asia',
-      category: 'International',
-      date: '2024-08-18',
-      excerpt: 'Insights from managing international financial operations and regulatory compliance across cultures.',
-      tags: ['International', 'Southeast Asia', 'Operations'],
-      author: 'Your Name',
-      readTime: '9 min read',
-      featured: false,
-      image: '/api/placeholder/300/200'
-    },
-    {
-      id: 'data-driven-ma',
-      title: 'Data-Driven M&A: Analytics for Better Deal Outcomes',
-      category: 'M&A',
-      date: '2024-07-30',
-      excerpt: 'Using advanced analytics and modeling to improve merger and acquisition decision-making processes.',
-      tags: ['M&A', 'Analytics', 'Data-Driven'],
-      author: 'Your Name',
-      readTime: '10 min read',
-      featured: false,
-      image: '/api/placeholder/300/200'
-    }
-  ]
 
   if (loading) {
     return (
@@ -177,7 +178,7 @@ const Blog = () => {
         transition={{ duration: 0.5 }}
       >
         <h2 className="page-title text-left">Blog</h2>
-        
+
         <div className="h-0.5 w-12 bg-orange-yellow mb-6"></div>
       </motion.div>
 

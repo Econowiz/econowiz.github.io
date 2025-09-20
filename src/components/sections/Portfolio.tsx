@@ -46,6 +46,88 @@ interface PortfolioProps {
 // - See the hero section below for where to render the <img> (behind overlays)
 
 
+// Fallback projects (module-level constant for stable reference)
+const fallbackProjects: ProjectSummary[] = [
+  {
+    id: 'ma-valuation',
+    title: 'M&A Financial Valuation Model',
+    category: 'Financial Analytics',
+    type: 'standard',
+    description: 'Built comprehensive Excel-based valuation model for $2M industrial chemicals acquisition. Included DCF analysis, comparable company analysis, and sensitivity scenarios that supported successful deal completion.',
+    tags: ['Excel', 'DCF', 'M&A', 'Valuation'],
+    duration: '6 weeks',
+    client: 'Investment Firm',
+    hasInteractive: false,
+    featured: true,
+    order: 1
+  },
+  {
+    id: 'executive-dashboard',
+    title: 'Executive KPI Dashboard',
+    category: 'Business Intelligence',
+    type: 'dashboard',
+    description: 'Power BI dashboard providing real-time insights into key performance metrics. Automated data refresh from multiple sources, resulting in 30% faster executive decision-making process.',
+    tags: ['Power BI', 'KPIs', 'Real-time', 'Automation'],
+    duration: '8 weeks',
+    client: 'Corporate Executive Team',
+    hasInteractive: true,
+    featured: true,
+    order: 2
+  },
+  {
+    id: 'real-estate-calculator',
+    title: 'Real Estate Investment Calculator',
+    category: 'Investment Analysis',
+    type: 'interactive',
+    description: 'Python-based ROI analysis tool for international real estate investments. Incorporates currency fluctuations, local market trends, and regulatory factors across Asia-Pacific markets.',
+    tags: ['Python', 'ROI', 'Real Estate', 'APAC'],
+    duration: '10 weeks',
+    client: 'Real Estate Investment Fund',
+    hasInteractive: true,
+    featured: false,
+    order: 3
+  },
+  {
+    id: 'financial-automation',
+    title: 'Automated Financial Reconciliation',
+    category: 'Process Automation',
+    type: 'interactive',
+    description: 'VBA-powered automation system for monthly financial reconciliations. Reduced manual processing time by 80% and eliminated human errors, saving $20K+ annually in operational costs.',
+    tags: ['VBA', 'Automation', '$20K+ Savings', '80% Reduction'],
+    duration: '3 months',
+    client: 'Manufacturing Company',
+    hasInteractive: true,
+    featured: true,
+    order: 4
+  },
+  {
+    id: 'revenue-forecasting',
+    title: 'Revenue Forecasting Model',
+    category: 'Financial Analytics',
+    type: 'dashboard',
+    description: 'Machine learning model using Python and historical data to predict quarterly revenue with 92% accuracy. Integrates market indicators and seasonal patterns for strategic planning.',
+    tags: ['Python', 'ML', '92% Accuracy', 'Forecasting'],
+    duration: '4 months',
+    client: 'Technology Services Company',
+    hasInteractive: true,
+    featured: true,
+    order: 5
+  },
+  {
+    id: 'cost-optimization',
+    title: 'Cost Optimization Analysis',
+    category: 'Business Intelligence',
+    type: 'case-study',
+    description: 'Comprehensive analysis using SQL and Tableau to identify cost reduction opportunities. Data-driven recommendations led to 15% reduction in operational expenses across multiple departments.',
+    tags: ['SQL', 'Tableau', '15% Reduction', 'Cost Analysis'],
+    duration: '2 months',
+    client: 'Multi-department Organization',
+    hasInteractive: true,
+    featured: true,
+    order: 6
+  }
+]
+
 const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
   const [activeFilter, setActiveFilter] = useState('All')
   const [projects, setProjects] = useState<ProjectSummary[]>([])
@@ -81,87 +163,6 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
     loadProjects()
   }, [])
 
-  // Fallback projects (converted from your current hardcoded data)
-  const fallbackProjects: ProjectSummary[] = [
-    {
-      id: 'ma-valuation',
-      title: 'M&A Financial Valuation Model',
-      category: 'Financial Analytics',
-      type: 'standard',
-      description: 'Built comprehensive Excel-based valuation model for $2M industrial chemicals acquisition. Included DCF analysis, comparable company analysis, and sensitivity scenarios that supported successful deal completion.',
-      tags: ['Excel', 'DCF', 'M&A', 'Valuation'],
-      duration: '6 weeks',
-      client: 'Investment Firm',
-      hasInteractive: false,
-      featured: true,
-      order: 1
-    },
-    {
-      id: 'executive-dashboard',
-      title: 'Executive KPI Dashboard',
-      category: 'Business Intelligence',
-      type: 'dashboard',
-      description: 'Power BI dashboard providing real-time insights into key performance metrics. Automated data refresh from multiple sources, resulting in 30% faster executive decision-making process.',
-      tags: ['Power BI', 'KPIs', 'Real-time', 'Automation'],
-      duration: '8 weeks',
-      client: 'Corporate Executive Team',
-      hasInteractive: true,
-      featured: true,
-      order: 2
-    },
-    {
-      id: 'real-estate-calculator',
-      title: 'Real Estate Investment Calculator',
-      category: 'Investment Analysis',
-      type: 'interactive',
-      description: 'Python-based ROI analysis tool for international real estate investments. Incorporates currency fluctuations, local market trends, and regulatory factors across Asia-Pacific markets.',
-      tags: ['Python', 'ROI', 'Real Estate', 'APAC'],
-      duration: '10 weeks',
-      client: 'Real Estate Investment Fund',
-      hasInteractive: true,
-      featured: false,
-      order: 3
-    },
-    {
-      id: 'financial-automation',
-      title: 'Automated Financial Reconciliation',
-      category: 'Process Automation',
-      type: 'interactive',
-      description: 'VBA-powered automation system for monthly financial reconciliations. Reduced manual processing time by 80% and eliminated human errors, saving $20K+ annually in operational costs.',
-      tags: ['VBA', 'Automation', '$20K+ Savings', '80% Reduction'],
-      duration: '3 months',
-      client: 'Manufacturing Company',
-      hasInteractive: true,
-      featured: true,
-      order: 4
-    },
-    {
-      id: 'revenue-forecasting',
-      title: 'Revenue Forecasting Model',
-      category: 'Financial Analytics',
-      type: 'dashboard',
-      description: 'Machine learning model using Python and historical data to predict quarterly revenue with 92% accuracy. Integrates market indicators and seasonal patterns for strategic planning.',
-      tags: ['Python', 'ML', '92% Accuracy', 'Forecasting'],
-      duration: '4 months',
-      client: 'Technology Services Company',
-      hasInteractive: true,
-      featured: true,
-      order: 5
-    },
-    {
-      id: 'cost-optimization',
-      title: 'Cost Optimization Analysis',
-      category: 'Business Intelligence',
-      type: 'case-study',
-      description: 'Comprehensive analysis using SQL and Tableau to identify cost reduction opportunities. Data-driven recommendations led to 15% reduction in operational expenses across multiple departments.',
-      tags: ['SQL', 'Tableau', '15% Reduction', 'Cost Analysis'],
-      duration: '2 months',
-      client: 'Multi-department Organization',
-      hasInteractive: true,
-      featured: true,
-      order: 6
-    }
-  ]
 
   if (loading) {
     return (
@@ -229,7 +230,7 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
         transition={{ duration: 0.5 }}
       >
         <h2 className="page-title text-left">Portfolio</h2>
-        
+
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
       </motion.div>
 
