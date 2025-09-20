@@ -1,0 +1,78 @@
+{
+  "id": "ma-valuation",
+  "title": "M&A Financial Valuation Model",
+  "category": "Financial Analytics",
+  "type": "standard",
+  "description": "Built comprehensive Excel-based valuation model for $2M industrial chemicals acquisition. Included DCF analysis, comparable company analysis, and sensitivity scenarios that supported successful deal completion.",
+  "tags": ["Excel", "DCF", "M&A", "Valuation", "Financial Modeling"],
+  "duration": "6 weeks",
+  "client": "Investment Firm",
+  "hero_image": "/images/projects/ma-valuation-hero.jpg",
+  "gallery": [
+    "/images/projects/ma-valuation-dcf.jpg",
+    "/images/projects/ma-valuation-comps.jpg",
+    "/images/projects/ma-valuation-sensitivity.jpg"
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Project Overview",
+      "type": "text",
+      "content": "## Challenge\n\nThe investment firm needed a comprehensive valuation analysis for a $2M acquisition of an industrial chemicals company. The analysis required multiple valuation methodologies, sensitivity analysis, and risk assessment to support investment decision-making.\n\n### Key Requirements:\n- Comprehensive DCF (Discounted Cash Flow) analysis\n- Comparable company analysis for market validation\n- Sensitivity analysis for different scenarios\n- Risk assessment and mitigation strategies\n- Professional presentation for stakeholders",
+      "order": 1
+    },
+    {
+      "id": "methodology",
+      "title": "Valuation Methodology",
+      "type": "text",
+      "content": "## Valuation Approach\n\n### 1. Discounted Cash Flow (DCF) Analysis\n- **Revenue Projections**: 5-year detailed revenue forecasts\n- **Cost Structure Analysis**: Operating expenses and margin analysis\n- **Capital Requirements**: Working capital and CapEx projections\n- **Terminal Value**: Perpetual growth and exit multiple approaches\n- **Discount Rate**: WACC calculation with industry risk adjustments\n\n### 2. Comparable Company Analysis\n- **Public Comparables**: Analysis of 8 publicly traded chemical companies\n- **Transaction Comparables**: Recent M&A transactions in the sector\n- **Multiple Analysis**: EV/Revenue, EV/EBITDA, P/E ratios\n- **Market Position**: Competitive positioning and market share analysis\n\n### 3. Sensitivity Analysis\n- **Revenue Growth Scenarios**: Conservative, base case, and optimistic\n- **Margin Sensitivity**: Impact of cost structure changes\n- **Discount Rate Variations**: Risk premium adjustments\n- **Terminal Value Sensitivity**: Growth rate and multiple variations",
+      "order": 2
+    },
+    {
+      "id": "results",
+      "title": "Valuation Results",
+      "type": "text",
+      "content": "## Valuation Results\n\n### DCF Analysis Results\n- **Base Case Valuation**: $2.1M enterprise value\n- **Conservative Scenario**: $1.8M (15% downside)\n- **Optimistic Scenario**: $2.4M (15% upside)\n- **Recommended Offer Range**: $1.9M - $2.0M\n\n### Comparable Analysis Validation\n- **Public Comps Range**: $1.9M - $2.2M\n- **Transaction Comps**: $2.0M - $2.3M\n- **Median Valuation**: $2.05M\n- **Validation**: DCF results aligned with market comparables\n\n### Key Value Drivers Identified\n- **Market Position**: Strong regional presence\n- **Customer Relationships**: Long-term contracts with key clients\n- **Operational Efficiency**: Above-average margins\n- **Growth Potential**: Expansion opportunities in adjacent markets\n\n### Risk Factors\n- **Regulatory Environment**: Environmental compliance costs\n- **Raw Material Costs**: Commodity price volatility\n- **Customer Concentration**: Dependence on top 3 customers\n- **Competition**: Potential market share erosion",
+      "order": 3
+    },
+    {
+      "id": "outcome",
+      "title": "Project Outcome",
+      "type": "text",
+      "content": "## Project Outcome\n\n### Successful Deal Completion\n- **Final Acquisition Price**: $2.0M (within recommended range)\n- **Deal Structure**: Cash transaction with earnout provisions\n- **Due Diligence Support**: Model used throughout DD process\n- **Stakeholder Approval**: Board approved based on analysis\n\n### Model Features\n- **Dynamic Scenarios**: Easy adjustment of key assumptions\n- **Sensitivity Tables**: Automated sensitivity analysis\n- **Professional Formatting**: Investment-grade presentation\n- **Documentation**: Comprehensive assumption documentation\n\n### Business Impact\n- **Investment Decision**: Supported $2M investment decision\n- **Risk Mitigation**: Identified and quantified key risks\n- **Negotiation Support**: Provided valuation range for negotiations\n- **Post-Acquisition Planning**: Framework for performance monitoring\n\n### Lessons Learned\n- **Industry Expertise**: Deep sector knowledge crucial for accuracy\n- **Multiple Methodologies**: Cross-validation improves confidence\n- **Scenario Planning**: Sensitivity analysis essential for risk assessment\n- **Stakeholder Communication**: Clear presentation critical for buy-in",
+      "order": 4
+    }
+  ],
+  "datasets": [
+    {
+      "id": "financial-data",
+      "name": "Target Company Financial Data",
+      "path": "/data/ma-valuation/financial-statements.xlsx",
+      "type": "xlsx",
+      "description": "Historical financial statements and projections"
+    },
+    {
+      "id": "comparable-companies",
+      "name": "Comparable Companies Analysis",
+      "path": "/data/ma-valuation/comparable-analysis.xlsx",
+      "type": "xlsx",
+      "description": "Public and transaction comparable analysis data"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "valuation-model",
+      "name": "Complete Valuation Model",
+      "path": "/downloads/ma-valuation-model.xlsx",
+      "type": "excel",
+      "description": "Comprehensive Excel-based valuation model with all scenarios"
+    },
+    {
+      "id": "executive-summary",
+      "name": "Executive Summary Presentation",
+      "path": "/downloads/ma-valuation-summary.pdf",
+      "type": "pdf",
+      "description": "Executive presentation with key findings and recommendations"
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "projects": [
+    {
+      "id": "intelligent-financial-close",
+      "title": "Intelligent Financial Close System",
+      "category": "Financial Analytics",
+      "type": "interactive",
+      "description": "Enterprise ML-powered financial close automation achieving 73% automation rate, $285K annual savings, and 280% ROI through advanced anomaly detection and predictive analytics.",
+      "tags": ["Python", "Machine Learning", "Financial Analytics", "Process Automation", "ML", "Statistical Analysis"],
+      "duration": "6 months",
+      "client": "Industry: Enterprise Finance",
+      "hero_image": "/images/projects/intelligent-financial-close-hero.svg",
+      "hasInteractive": true,
+      "featured": true,
+      "order": 0
+    },
+    {
+      "id": "financial-automation",
+      "title": "Financial Process Automation",
+      "category": "Process Automation",
+      "type": "interactive",
+      "description": "Transformed manual financial reconciliation processes through intelligent automation, eliminating errors and reducing processing time by 85%.",
+      "tags": ["Python", "Automation", "VBA", "Process Improvement"],
+      "duration": "3 months",
+      "client": "Manufacturing Company",
+      "hero_image": "/images/projects/financial-automation-hero.jpg",
+      "hasInteractive": true,
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "revenue-forecasting",
+      "title": "Revenue Forecasting Model",
+      "category": "Financial Analytics",
+      "type": "dashboard",
+      "description": "Built a machine learning-powered revenue forecasting model achieving 92% accuracy, enabling data-driven strategic planning and resource allocation.",
+      "tags": ["Python", "Machine Learning", "Forecasting", "Power BI"],
+      "duration": "4 months",
+      "client": "Technology Services Company",
+      "hero_image": "/images/projects/revenue-forecasting-hero.jpg",
+      "hasInteractive": true,
+      "featured": true,
+      "order": 2
+    },
+    {
+      "id": "cost-optimization",
+      "title": "Cost Optimization Analysis",
+      "category": "Business Intelligence",
+      "type": "case-study",
+      "description": "Conducted comprehensive cost analysis using advanced analytics, identifying and implementing a 15% cost reduction across multiple departments.",
+      "tags": ["SQL", "Tableau", "Cost Analysis", "Business Intelligence"],
+      "duration": "2 months",
+      "client": "Multi-department Organization",
+      "hero_image": "/images/projects/cost-optimization-hero.jpg",
+      "hasInteractive": true,
+      "featured": true,
+      "order": 3
+    },
+    {
+      "id": "ma-valuation",
+      "title": "M&A Financial Valuation Model",
+      "category": "Financial Analytics",
+      "type": "standard",
+      "description": "Built comprehensive Excel-based valuation model for $2M industrial chemicals acquisition. Included DCF analysis, comparable company analysis, and sensitivity scenarios that supported successful deal completion.",
+      "tags": ["Excel", "DCF", "M&A", "Valuation", "Financial Modeling"],
+      "duration": "6 weeks",
+      "client": "Investment Firm",
+      "hero_image": "/images/projects/ma-valuation-hero.jpg",
+      "hasInteractive": false,
+      "featured": true,
+      "order": 4
+    },
+    {
+      "id": "executive-dashboard",
+      "title": "Executive KPI Dashboard",
+      "category": "Business Intelligence",
+      "type": "dashboard",
+      "description": "Power BI dashboard providing real-time insights into key performance metrics. Automated data refresh from multiple sources, resulting in 30% faster executive decision-making process.",
+      "tags": ["Power BI", "KPIs", "Real-time", "Automation", "Executive"],
+      "duration": "8 weeks",
+      "client": "Corporate Executive Team",
+      "hero_image": "/images/projects/executive-dashboard-hero.jpg",
+      "hasInteractive": true,
+      "featured": true,
+      "order": 5
+    },
+    {
+      "id": "real-estate-calculator",
+      "title": "Real Estate Investment Calculator",
+      "category": "Investment Analysis",
+      "type": "interactive",
+      "description": "Python-based ROI analysis tool for international real estate investments. Incorporates currency fluctuations, local market trends, and regulatory factors across Asia-Pacific markets.",
+      "tags": ["Python", "ROI", "Real Estate", "APAC", "Investment"],
+      "duration": "10 weeks",
+      "client": "Real Estate Investment Fund",
+      "hero_image": "/images/projects/real-estate-calculator-hero.jpg",
+      "hasInteractive": true,
+      "featured": false,
+      "order": 6
+    }
+  ],
+  "categories": [
+    {
+      "id": "financial-analytics",
+      "name": "Financial Analytics",
+      "description": "Advanced financial modeling, forecasting, and analysis projects",
+      "color": "blue",
+      "icon": "calculator"
+    },
+    {
+      "id": "business-intelligence",
+      "name": "Business Intelligence",
+      "description": "Data visualization, reporting, and business insights projects",
+      "color": "green",
+      "icon": "bar-chart"
+    },
+    {
+      "id": "process-automation",
+      "name": "Process Automation",
+      "description": "Workflow automation and process improvement initiatives",
+      "color": "purple",
+      "icon": "settings"
+    },
+    {
+      "id": "investment-analysis",
+      "name": "Investment Analysis",
+      "description": "Investment evaluation, portfolio analysis, and risk assessment",
+      "color": "red",
+      "icon": "trending-up"
+    }
+  ],
+  "tags": [
+    "Python", "Excel", "Power BI", "Tableau", "SQL", "VBA", "Machine Learning",
+    "Automation", "DCF", "M&A", "Valuation", "Forecasting", "KPIs", "Real-time",
+    "ROI", "Real Estate", "APAC", "Process Improvement", "Business Intelligence",
+    "Cost Analysis"
+  ]
+}

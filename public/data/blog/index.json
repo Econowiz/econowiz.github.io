@@ -1,0 +1,121 @@
+{
+  "posts": [
+    {
+      "id": "future-of-financial-analytics",
+      "title": "The Future of Financial Analytics in 2025",
+      "category": "Finance",
+      "date": "2024-12-15",
+      "excerpt": "How AI and machine learning are transforming traditional financial analysis and what professionals need to know.",
+      "tags": ["AI", "Finance", "Analytics", "Machine Learning", "2025"],
+      "author": "Financial Analytics Expert",
+      "readTime": "5 min read",
+      "featured": true,
+      "image": "/images/blog/future-of-financial-analytics/hero.jpg"
+    },
+    {
+      "id": "power-bi-dashboards",
+      "title": "Building Effective Financial Dashboards with Power BI",
+      "category": "Analytics",
+      "date": "2024-11-28",
+      "excerpt": "Best practices for creating executive-level financial dashboards that drive decision-making.",
+      "tags": ["Power BI", "Dashboards", "Analytics", "Business Intelligence", "Executive"],
+      "author": "BI Specialist",
+      "readTime": "7 min read",
+      "featured": true,
+      "image": "/images/blog/power-bi-dashboards/hero.jpg"
+    },
+    {
+      "id": "python-real-estate",
+      "title": "Python for Real Estate Investment Analysis",
+      "category": "Investment",
+      "date": "2024-10-12",
+      "excerpt": "Leveraging Python libraries for comprehensive real estate market analysis and ROI calculations.",
+      "tags": ["Python", "Real Estate", "Investment", "ROI", "Analysis"],
+      "author": "Investment Analyst",
+      "readTime": "8 min read",
+      "featured": false,
+      "image": "/images/blog/python-real-estate/hero.jpg"
+    },
+    {
+      "id": "excel-vba-automation",
+      "title": "Advanced Excel VBA for Financial Process Automation",
+      "category": "Automation",
+      "date": "2024-09-25",
+      "excerpt": "How to automate complex financial processes and save thousands in operational costs.",
+      "tags": ["Excel", "VBA", "Automation", "Process Improvement", "Cost Savings"],
+      "author": "Process Automation Expert",
+      "readTime": "6 min read",
+      "featured": false,
+      "image": "/images/blog/excel-vba-automation/hero.jpg"
+    },
+    {
+      "id": "southeast-asia-operations",
+      "title": "Navigating Cross-Border Financial Operations in Southeast Asia",
+      "category": "International",
+      "date": "2024-08-18",
+      "excerpt": "Insights from managing international financial operations and regulatory compliance across cultures.",
+      "tags": ["International", "Southeast Asia", "Operations", "Compliance", "Cross-Border"],
+      "author": "International Finance Manager",
+      "readTime": "9 min read",
+      "featured": false,
+      "image": "/images/blog/southeast-asia-operations/hero.jpg"
+    },
+    {
+      "id": "data-driven-ma",
+      "title": "Data-Driven M&A: Analytics for Better Deal Outcomes",
+      "category": "M&A",
+      "date": "2024-07-30",
+      "excerpt": "Using advanced analytics and modeling to improve merger and acquisition decision-making processes.",
+      "tags": ["M&A", "Analytics", "Data-Driven", "Deal Analysis", "Modeling"],
+      "author": "M&A Analyst",
+      "readTime": "10 min read",
+      "featured": false,
+      "image": "/images/blog/data-driven-ma/hero.jpg"
+    }
+  ],
+  "categories": [
+    {
+      "id": "finance",
+      "name": "Finance",
+      "description": "Financial analysis, trends, and insights",
+      "color": "blue"
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "description": "Data analysis, visualization, and business intelligence",
+      "color": "green"
+    },
+    {
+      "id": "investment",
+      "name": "Investment",
+      "description": "Investment strategies, analysis, and market insights",
+      "color": "red"
+    },
+    {
+      "id": "automation",
+      "name": "Automation",
+      "description": "Process automation and efficiency improvements",
+      "color": "purple"
+    },
+    {
+      "id": "international",
+      "name": "International",
+      "description": "Global business operations and cross-border insights",
+      "color": "cyan"
+    },
+    {
+      "id": "ma",
+      "name": "M&A",
+      "description": "Mergers, acquisitions, and deal analysis",
+      "color": "yellow"
+    }
+  ],
+  "tags": [
+    "AI", "Finance", "Analytics", "Machine Learning", "2025", "Power BI", "Dashboards", 
+    "Business Intelligence", "Executive", "Python", "Real Estate", "Investment", "ROI", 
+    "Analysis", "Excel", "VBA", "Automation", "Process Improvement", "Cost Savings", 
+    "International", "Southeast Asia", "Operations", "Compliance", "Cross-Border", 
+    "M&A", "Data-Driven", "Deal Analysis", "Modeling"
+  ]
+}

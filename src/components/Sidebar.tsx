@@ -12,8 +12,8 @@ const Sidebar = () => {
     {
       icon: EnvelopeIcon,
       label: 'Email',
-      value: 'franck@gmail.com',
-      href: 'mailto:franck@gmail.com'
+      value: 'frafiou@gmail.com',
+      href: 'mailto:frafiou@gmail.com'
     },
     /*
     {
@@ -62,17 +62,18 @@ const Sidebar = () => {
         <div className="text-center mb-6">
           <div className="relative inline-block mb-4">
             <img
-              src="/images/franck-avatar.JPG"
+              src="/images/franck-portrait.jpg"
               alt="Franck Rafiou"
-              className="w-36 h-36 rounded-2xl object-cover ring-1 ring-white/10 shadow-lg shadow-black/30"
+              loading="lazy"
+              className="w-44 h-52 rounded-2xl object-cover ring-1 ring-white/10 shadow-lg shadow-black/30"
             />
           </div>
 
-          <h1 className="text-white-1 text-2xl font-medium mb-1 font-heading">
+          <h1 className="display-number text-white-1 font-heading">
             Franck Rafiou
           </h1>
 
-          <div className="flex items-center justify-center gap-2 text-emerald-400 text-xs mb-2">
+          <div className="flex items-center justify-center gap-2 text-emerald-400 nav-text mb-2">
             <span className="relative inline-flex">
               <span className="absolute inline-block w-2.5 h-2.5 rounded-full bg-emerald-500/40 animate-ping" />
               <span className="relative inline-block w-2.5 h-2.5 rounded-full bg-emerald-500" />
@@ -81,7 +82,7 @@ const Sidebar = () => {
           </div>
 
 
-          <p className="text-gradient-yellow text-sm font-light bg-gradient-yellow-1 px-3 py-1 rounded-lg inline-block">
+          <p className="text-gradient-yellow body-small bg-gradient-yellow-1 px-3 py-1 rounded-lg inline-block">
             Strategic Finance & Analytics Professional
           </p>
         </div>
@@ -96,7 +97,7 @@ const Sidebar = () => {
           aria-controls="contact-panel"
           className="relative w-full flex items-center justify-center bg-gradient-onyx text-orange-yellow py-2 px-3 rounded-lg mb-0 hover:bg-gradient-yellow-2 transition-all duration-300"
         >
-          <span className="text-sm font-medium">Show Contacts</span>
+          <span className="nav-text">Show Contacts</span>
           <motion.div
             className="absolute right-3"
             animate={{ rotate: isContactOpen ? 180 : 0 }}
@@ -133,7 +134,7 @@ const Sidebar = () => {
                 >
                   <IconComponent className="w-4 h-4 text-light-gray" />
                   <div className="flex-1">
-                    <p className="text-light-gray text-xs uppercase tracking-wide text-left">
+                    <p className="nav-text text-light-gray uppercase tracking-wide text-left">
                       {contact.label}
                     </p>
                     {contact.href ? (
@@ -142,20 +143,20 @@ const Sidebar = () => {
                           href={contact.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-white-2 text-sm hover:text-orange-yellow transition-colors text-left"
+                          className="body-small text-white-2 hover:text-orange-yellow transition-colors text-left"
                         >
                           {contact.value}
                         </a>
                         {contact.label === 'Email' ? (
                           <div className="flex items-center gap-2 ml-3">
                             {copied && (
-                              <span className="text-emerald-400 text-[11px] flex items-center gap-1">
+                              <span className="text-emerald-400 nav-text flex items-center gap-1">
                                 <CheckIcon className="w-3.5 h-3.5" /> Copied!
                               </span>
                             )}
                             <button
                               type="button"
-                              onClick={(e) => { e.preventDefault(); navigator.clipboard.writeText('franck@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 1300); }}
+                              onClick={(e) => { e.preventDefault(); navigator.clipboard.writeText('frafiou@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 1300); }}
                               className="text-light-gray opacity-60 hover:opacity-100 focus:opacity-100 hover:text-orange-yellow transition-opacity"
                               aria-label="Copy email"
                               title="Copy email"
@@ -168,7 +169,7 @@ const Sidebar = () => {
                         )}
                       </div>
                     ) : (
-                      <p className="text-white-2 text-sm text-left">{contact.value}</p>
+                      <p className="body-small text-white-2 text-left">{contact.value}</p>
                     )}
                   </div>
                 </motion.div>
@@ -207,7 +208,7 @@ const Sidebar = () => {
         </div>
 
         <div className="border-t border-jet opacity-60 my-5" />
-        <p className="text-center text-xs text-light-gray mb-1">© {new Date().getFullYear()} Franck Rafiou</p>
+        <p className="nav-text text-center text-light-gray mb-1">© {new Date().getFullYear()} Franck Rafiou</p>
 
       </div>
     </motion.aside>

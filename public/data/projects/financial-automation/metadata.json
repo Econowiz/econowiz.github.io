@@ -1,0 +1,275 @@
+{
+  "id": "financial-automation",
+  "title": "Financial Process Automation",
+  "category": "Process Automation",
+  "type": "interactive",
+  "description": "Transformed manual financial reconciliation processes through intelligent automation, eliminating errors and reducing processing time by 85%.",
+  "tags": ["Python", "Automation", "VBA", "Process Improvement"],
+  "duration": "3 months",
+  "client": "Manufacturing Company",
+  "hero_image": "/images/projects/financial-automation-hero.jpg",
+  "gallery": [
+    "/images/projects/financial-automation-before.jpg",
+    "/images/projects/financial-automation-after.jpg",
+    "/images/projects/financial-automation-dashboard.jpg"
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Project Overview",
+      "type": "text",
+      "content": "## Challenge\n\nThe finance team was spending 40+ hours monthly on manual reconciliation processes, leading to frequent errors, delayed reporting, and team burnout. The manual process involved cross-referencing multiple data sources, identifying discrepancies, and creating adjustment entries.\n\n### Key Pain Points:\n- Manual data entry errors causing financial discrepancies\n- 40+ hours monthly spent on repetitive tasks\n- Delayed month-end closing by 3-5 days\n- High stress levels during reconciliation periods\n- Lack of audit trail for reconciliation decisions",
+      "order": 1
+    },
+    {
+      "id": "solution",
+      "title": "Automation Solution",
+      "type": "mixed",
+      "content": "## The Solution\n\nDeveloped a comprehensive Python-based automation system with built-in data validation, error detection, and automated reporting capabilities.\n\n### Technologies Used:\n- **Python & Pandas**: Data processing and validation\n- **Excel VBA**: Integration with existing workflows\n- **SQL**: Database connectivity and data extraction\n- **ERP Integration**: Seamless data flow from source systems",
+      "components": [
+        {
+          "id": "process-comparison",
+          "title": "Before vs After Process Comparison",
+          "type": "comparison",
+          "config": {
+            "type": "before-after",
+            "title": "Process Efficiency Comparison",
+            "datasets": [
+              {
+                "id": "before",
+                "name": "Manual Process",
+                "data": [
+                  { "step": "Data Collection", "time": 8, "errors": 5 },
+                  { "step": "Cross-referencing", "time": 12, "errors": 8 },
+                  { "step": "Discrepancy Analysis", "time": 15, "errors": 12 },
+                  { "step": "Adjustment Entries", "time": 6, "errors": 3 },
+                  { "step": "Reporting", "time": 4, "errors": 2 }
+                ],
+                "color": "#ef4444"
+              },
+              {
+                "id": "after",
+                "name": "Automated Process",
+                "data": [
+                  { "step": "Data Collection", "time": 1, "errors": 0 },
+                  { "step": "Cross-referencing", "time": 2, "errors": 0 },
+                  { "step": "Discrepancy Analysis", "time": 2, "errors": 0 },
+                  { "step": "Adjustment Entries", "time": 1, "errors": 0 },
+                  { "step": "Reporting", "time": 0.5, "errors": 0 }
+                ],
+                "color": "#22c55e"
+              }
+            ],
+            "metrics": [
+              {
+                "id": "time_saved",
+                "label": "Time Saved",
+                "formula": "before.time - after.time",
+                "format": "number"
+              },
+              {
+                "id": "error_reduction",
+                "label": "Error Reduction",
+                "formula": "((before.errors - after.errors) / before.errors) * 100",
+                "format": "percentage"
+              }
+            ]
+          }
+        }
+      ],
+      "order": 2
+    },
+    {
+      "id": "results",
+      "title": "Results & Impact",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "impact-dashboard",
+          "title": "Project Impact Dashboard",
+          "type": "dashboard",
+          "config": {
+            "title": "Financial Automation Impact",
+            "layout": "grid",
+            "widgets": [
+              {
+                "id": "time-reduction",
+                "title": "Processing Time Reduction",
+                "type": "metric",
+                "size": "medium",
+                "config": {
+                  "value": 85,
+                  "label": "Time Reduction",
+                  "format": "percentage",
+                  "trend": {
+                    "value": 85,
+                    "direction": "up",
+                    "label": "From 40+ hours to 6 hours monthly"
+                  },
+                  "color": "#22c55e"
+                },
+                "position": { "x": 0, "y": 0, "w": 6, "h": 3 }
+              },
+              {
+                "id": "cost-savings",
+                "title": "Annual Cost Savings",
+                "type": "metric",
+                "size": "medium",
+                "config": {
+                  "value": 20000,
+                  "label": "Annual Savings",
+                  "format": "currency",
+                  "trend": {
+                    "value": 20000,
+                    "direction": "up",
+                    "label": "Through reduced labor and improved efficiency"
+                  },
+                  "color": "#3b82f6"
+                },
+                "position": { "x": 6, "y": 0, "w": 6, "h": 3 }
+              },
+              {
+                "id": "error-elimination",
+                "title": "Error Rate",
+                "type": "chart",
+                "size": "large",
+                "config": {
+                  "library": "recharts",
+                  "chartType": "line",
+                  "title": "Error Rate Over Time",
+                  "xAxisKey": "month",
+                  "yAxisKey": "errors",
+                  "colors": ["#ef4444", "#22c55e"],
+                  "showGrid": true,
+                  "showLegend": true
+                },
+                "position": { "x": 0, "y": 3, "w": 12, "h": 6 }
+              }
+            ]
+          },
+          "dataSource": "automation-metrics"
+        }
+      ],
+      "order": 3
+    },
+    {
+      "id": "roi-calculator",
+      "title": "ROI Calculator",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "automation-roi",
+          "title": "Process Automation ROI Calculator",
+          "type": "calculator",
+          "config": {
+            "type": "roi",
+            "title": "Calculate Your Automation ROI",
+            "description": "Estimate the potential return on investment for similar automation projects",
+            "fields": [
+              {
+                "id": "monthly_hours",
+                "label": "Monthly Manual Hours",
+                "type": "number",
+                "defaultValue": 40,
+                "min": 1,
+                "max": 200,
+                "step": 1,
+                "description": "Hours spent monthly on manual processes"
+              },
+              {
+                "id": "hourly_rate",
+                "label": "Average Hourly Rate",
+                "type": "currency",
+                "defaultValue": 35,
+                "min": 15,
+                "max": 100,
+                "step": 5,
+                "description": "Average hourly cost of staff time"
+              },
+              {
+                "id": "error_rate",
+                "label": "Current Error Rate",
+                "type": "percentage",
+                "defaultValue": 15,
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "description": "Percentage of transactions with errors"
+              },
+              {
+                "id": "error_cost",
+                "label": "Average Cost per Error",
+                "type": "currency",
+                "defaultValue": 50,
+                "min": 10,
+                "max": 500,
+                "step": 10,
+                "description": "Average cost to fix each error"
+              },
+              {
+                "id": "automation_efficiency",
+                "label": "Expected Automation Efficiency",
+                "type": "percentage",
+                "defaultValue": 85,
+                "min": 50,
+                "max": 95,
+                "step": 5,
+                "description": "Expected reduction in manual work"
+              }
+            ],
+            "formula": "((monthly_hours * hourly_rate * 12) + (error_rate/100 * error_cost * 12)) * (automation_efficiency/100)",
+            "resultFormat": "currency",
+            "resultLabel": "Annual Savings Potential",
+            "additionalOutputs": [
+              {
+                "id": "monthly_savings",
+                "label": "Monthly Savings",
+                "formula": "((monthly_hours * hourly_rate) + (error_rate/100 * error_cost)) * (automation_efficiency/100)",
+                "format": "currency"
+              },
+              {
+                "id": "time_saved",
+                "label": "Hours Saved Monthly",
+                "formula": "monthly_hours * (automation_efficiency/100)",
+                "format": "number"
+              }
+            ]
+          }
+        }
+      ],
+      "order": 4
+    }
+  ],
+  "datasets": [
+    {
+      "id": "automation-metrics",
+      "name": "Automation Impact Metrics",
+      "path": "/data/financial-automation/metrics.json",
+      "type": "json",
+      "description": "Monthly metrics showing the impact of automation implementation"
+    },
+    {
+      "id": "process-comparison",
+      "name": "Process Comparison Data",
+      "path": "/data/financial-automation/process-comparison.json",
+      "type": "json",
+      "description": "Before and after process efficiency data"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "implementation-guide",
+      "name": "Automation Implementation Guide",
+      "path": "/downloads/financial-automation-guide.pdf",
+      "type": "pdf",
+      "description": "Step-by-step guide for implementing similar automation solutions"
+    },
+    {
+      "id": "roi-template",
+      "name": "ROI Calculation Template",
+      "path": "/downloads/automation-roi-template.xlsx",
+      "type": "excel",
+      "description": "Excel template for calculating automation ROI"
+    }
+  ]
+}

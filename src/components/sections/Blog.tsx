@@ -1,63 +1,154 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { UnifiedCard, UnifiedGrid } from '../shared'
 
+interface BlogPost {
+  id: string
+  title: string
+  category: string
+  date: string
+  excerpt: string
+  tags: string[]
+  author: string
+  readTime: string
+  featured: boolean
+  image?: string
+}
+
+interface BlogIndex {
+  posts: BlogPost[]
+  categories: Array<{
+    id: string
+    name: string
+    description: string
+    color: string
+  }>
+  tags: string[]
+}
+
 const Blog = () => {
-  const blogPosts = [
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error] = useState<string | null>(null)
+
+  // Load blog posts from data file
+  useEffect(() => {
+    const loadBlogPosts = async () => {
+      try {
+        const response = await fetch('/data/blog/index.json')
+        if (response.ok) {
+          const blogIndex: BlogIndex = await response.json()
+          setBlogPosts(blogIndex.posts)
+        } else {
+          // Fallback to hardcoded posts if no blog data exists yet
+          setBlogPosts(fallbackBlogPosts)
+        }
+      } catch {
+        // Fallback to hardcoded posts
+        setBlogPosts(fallbackBlogPosts)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadBlogPosts()
+  }, [])
+
+  // Fallback blog posts (your current hardcoded data)
+  const fallbackBlogPosts: BlogPost[] = [
     {
-      id: 1,
+      id: 'future-of-financial-analytics',
       title: 'The Future of Financial Analytics in 2025',
       category: 'Finance',
-      date: 'Dec 15, 2024',
+      date: '2024-12-15',
       excerpt: 'How AI and machine learning are transforming traditional financial analysis and what professionals need to know.',
-      image: '/api/placeholder/300/200',
-      link: '#'
+      tags: ['AI', 'Finance', 'Analytics'],
+      author: 'Your Name',
+      readTime: '5 min read',
+      featured: true,
+      image: '/api/placeholder/300/200'
     },
     {
-      id: 2,
+      id: 'power-bi-dashboards',
       title: 'Building Effective Financial Dashboards with Power BI',
       category: 'Analytics',
-      date: 'Nov 28, 2024',
+      date: '2024-11-28',
       excerpt: 'Best practices for creating executive-level financial dashboards that drive decision-making.',
-      image: '/api/placeholder/300/200',
-      link: '#'
+      tags: ['Power BI', 'Dashboards', 'Analytics'],
+      author: 'Your Name',
+      readTime: '7 min read',
+      featured: true,
+      image: '/api/placeholder/300/200'
     },
     {
-      id: 3,
+      id: 'python-real-estate',
       title: 'Python for Real Estate Investment Analysis',
       category: 'Investment',
-      date: 'Oct 12, 2024',
+      date: '2024-10-12',
       excerpt: 'Leveraging Python libraries for comprehensive real estate market analysis and ROI calculations.',
-      image: '/api/placeholder/300/200',
-      link: '#'
+      tags: ['Python', 'Real Estate', 'Investment'],
+      author: 'Your Name',
+      readTime: '8 min read',
+      featured: false,
+      image: '/api/placeholder/300/200'
     },
     {
-      id: 4,
+      id: 'excel-vba-automation',
       title: 'Advanced Excel VBA for Financial Process Automation',
       category: 'Automation',
-      date: 'Sep 25, 2024',
+      date: '2024-09-25',
       excerpt: 'How to automate complex financial processes and save thousands in operational costs.',
-      image: '/api/placeholder/300/200',
-      link: '#'
+      tags: ['Excel', 'VBA', 'Automation'],
+      author: 'Your Name',
+      readTime: '6 min read',
+      featured: false,
+      image: '/api/placeholder/300/200'
     },
     {
-      id: 5,
+      id: 'southeast-asia-operations',
       title: 'Navigating Cross-Border Financial Operations in Southeast Asia',
       category: 'International',
-      date: 'Aug 18, 2024',
+      date: '2024-08-18',
       excerpt: 'Insights from managing international financial operations and regulatory compliance across cultures.',
-      image: '/api/placeholder/300/200',
-      link: '#'
+      tags: ['International', 'Southeast Asia', 'Operations'],
+      author: 'Your Name',
+      readTime: '9 min read',
+      featured: false,
+      image: '/api/placeholder/300/200'
     },
     {
-      id: 6,
+      id: 'data-driven-ma',
       title: 'Data-Driven M&A: Analytics for Better Deal Outcomes',
       category: 'M&A',
-      date: 'Jul 30, 2024',
+      date: '2024-07-30',
       excerpt: 'Using advanced analytics and modeling to improve merger and acquisition decision-making processes.',
-      image: '/api/placeholder/300/200',
-      link: '#'
+      tags: ['M&A', 'Analytics', 'Data-Driven'],
+      author: 'Your Name',
+      readTime: '10 min read',
+      featured: false,
+      image: '/api/placeholder/300/200'
     }
   ]
+
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <div className="text-center py-12">
+          <p className="body-normal">Loading blog posts...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-8">
+        <div className="text-center py-12">
+          <p className="body-normal text-red-400">Error loading blog posts: {error}</p>
+        </div>
+      </div>
+    )
+  }
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -71,6 +162,12 @@ const Blog = () => {
     }
   }
 
+  const handleBlogClick = (postId: string) => {
+    // For now, show coming soon message
+    // Later, you can implement blog post detail view
+    alert(`"${blogPosts.find(p => p.id === postId)?.title}" article coming soon!`)
+  }
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -79,7 +176,7 @@ const Blog = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl lg:text-4xl font-bold text-white-1 text-left">Blog</h2>
+        <h2 className="page-title text-left">Blog</h2>
         
         <div className="h-0.5 w-12 bg-orange-yellow mb-6"></div>
       </motion.div>
@@ -94,9 +191,10 @@ const Blog = () => {
             description={post.excerpt}
             image={post.image}
             date={post.date}
+            tags={post.tags}
             index={index}
             getCategoryColor={getCategoryColor}
-            onCardClick={() => alert(`"${post.title}" article coming soon!`)}
+            onCardClick={() => handleBlogClick(post.id)}
           />
         ))}
       </UnifiedGrid>
@@ -108,7 +206,7 @@ const Blog = () => {
         transition={{ duration: 0.5, delay: 0.8 }}
         className="text-center py-8"
       >
-        <p className="text-light-gray text-sm">
+        <p className="body-small">
           More articles on financial analytics, investment strategy, and business intelligence coming soon!
         </p>
       </motion.div>

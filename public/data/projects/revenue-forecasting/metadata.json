@@ -1,0 +1,314 @@
+{
+  "id": "revenue-forecasting",
+  "title": "Revenue Forecasting Model",
+  "category": "Financial Analytics",
+  "type": "dashboard",
+  "description": "Built a machine learning-powered revenue forecasting model achieving 92% accuracy, enabling data-driven strategic planning and resource allocation.",
+  "tags": ["Python", "Machine Learning", "Forecasting", "Power BI"],
+  "duration": "4 months",
+  "client": "Technology Services Company",
+  "hero_image": "/images/projects/revenue-forecasting-hero.jpg",
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Project Overview",
+      "type": "text",
+      "content": "## Challenge\n\nThe company struggled with inaccurate revenue predictions, making it difficult to plan resources, set realistic targets, and make informed strategic decisions. Revenue forecasts were consistently off by 15-20%, leading to resource planning challenges and missed opportunities.\n\n### Key Pain Points:\n- Revenue forecasts consistently off by 15-20%\n- Inability to predict seasonal variations accurately\n- Resource planning challenges due to forecast uncertainty\n- Missed opportunities due to conservative projections\n- Lack of confidence in financial planning processes",
+      "order": 1
+    },
+    {
+      "id": "forecasting-dashboard",
+      "title": "Interactive Forecasting Dashboard",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "revenue-forecast-dashboard",
+          "title": "Revenue Forecasting Dashboard",
+          "type": "dashboard",
+          "config": {
+            "title": "Revenue Forecasting Model Results",
+            "layout": "grid",
+            "filters": [
+              {
+                "id": "time-range",
+                "label": "Time Range",
+                "type": "select",
+                "options": ["Last 12 Months", "Last 24 Months", "All Data"]
+              },
+              {
+                "id": "model-type",
+                "label": "Model Type",
+                "type": "select",
+                "options": ["Ensemble", "ARIMA", "Random Forest", "Neural Network"]
+              }
+            ],
+            "widgets": [
+              {
+                "id": "accuracy-metric",
+                "title": "Model Accuracy",
+                "type": "metric",
+                "size": "small",
+                "config": {
+                  "value": 92,
+                  "label": "Forecast Accuracy",
+                  "format": "percentage",
+                  "trend": {
+                    "value": 12,
+                    "direction": "up",
+                    "label": "Improved from 80% baseline"
+                  },
+                  "color": "#22c55e"
+                },
+                "position": { "x": 0, "y": 0, "w": 3, "h": 3 }
+              },
+              {
+                "id": "mape-metric",
+                "title": "Mean Absolute Percentage Error",
+                "type": "metric",
+                "size": "small",
+                "config": {
+                  "value": 8,
+                  "label": "MAPE",
+                  "format": "percentage",
+                  "trend": {
+                    "value": -12,
+                    "direction": "down",
+                    "label": "Reduced from 20%"
+                  },
+                  "color": "#3b82f6"
+                },
+                "position": { "x": 3, "y": 0, "w": 3, "h": 3 }
+              },
+              {
+                "id": "confidence-metric",
+                "title": "Planning Confidence",
+                "type": "metric",
+                "size": "small",
+                "config": {
+                  "value": 40,
+                  "label": "Confidence Increase",
+                  "format": "percentage",
+                  "trend": {
+                    "value": 40,
+                    "direction": "up",
+                    "label": "In strategic planning"
+                  },
+                  "color": "#8b5cf6"
+                },
+                "position": { "x": 6, "y": 0, "w": 3, "h": 3 }
+              },
+              {
+                "id": "decision-speed",
+                "title": "Decision Speed",
+                "type": "metric",
+                "size": "small",
+                "config": {
+                  "value": 50,
+                  "label": "Faster Decisions",
+                  "format": "percentage",
+                  "trend": {
+                    "value": 50,
+                    "direction": "up",
+                    "label": "Strategic decision making"
+                  },
+                  "color": "#f59e0b"
+                },
+                "position": { "x": 9, "y": 0, "w": 3, "h": 3 }
+              },
+              {
+                "id": "forecast-chart",
+                "title": "Revenue Forecast vs Actual",
+                "type": "chart",
+                "size": "large",
+                "config": {
+                  "library": "recharts",
+                  "chartType": "line",
+                  "title": "Revenue Forecast vs Actual Performance",
+                  "xAxisKey": "month",
+                  "yAxisKey": ["actual", "forecast", "confidence_upper", "confidence_lower"],
+                  "colors": ["#22c55e", "#3b82f6", "#e5e7eb", "#e5e7eb"],
+                  "showGrid": true,
+                  "showLegend": true,
+                  "showTooltip": true
+                },
+                "position": { "x": 0, "y": 3, "w": 12, "h": 6 }
+              },
+              {
+                "id": "model-comparison",
+                "title": "Model Performance Comparison",
+                "type": "chart",
+                "size": "medium",
+                "config": {
+                  "library": "recharts",
+                  "chartType": "bar",
+                  "title": "Model Accuracy Comparison",
+                  "xAxisKey": "model",
+                  "yAxisKey": "accuracy",
+                  "colors": ["#3b82f6"],
+                  "showGrid": true,
+                  "showLegend": false
+                },
+                "position": { "x": 0, "y": 9, "w": 6, "h": 4 }
+              },
+              {
+                "id": "feature-importance",
+                "title": "Feature Importance",
+                "type": "chart",
+                "size": "medium",
+                "config": {
+                  "library": "recharts",
+                  "chartType": "bar",
+                  "title": "Top Forecasting Features",
+                  "xAxisKey": "feature",
+                  "yAxisKey": "importance",
+                  "colors": ["#8b5cf6"],
+                  "showGrid": true,
+                  "showLegend": false
+                },
+                "position": { "x": 6, "y": 9, "w": 6, "h": 4 }
+              }
+            ]
+          },
+          "dataSource": "forecasting-results"
+        }
+      ],
+      "order": 2
+    },
+    {
+      "id": "scenario-simulator",
+      "title": "Scenario Planning Simulator",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "revenue-simulator",
+          "title": "Revenue Scenario Simulator",
+          "type": "simulation",
+          "config": {
+            "type": "scenario-analysis",
+            "title": "Revenue Scenario Planning Tool",
+            "description": "Adjust key parameters to see how they impact revenue forecasts",
+            "parameters": [
+              {
+                "id": "market_growth",
+                "label": "Market Growth Rate",
+                "type": "percentage",
+                "defaultValue": 5,
+                "min": -10,
+                "max": 20,
+                "step": 0.5,
+                "description": "Expected market growth rate"
+              },
+              {
+                "id": "customer_acquisition",
+                "label": "Customer Acquisition Rate",
+                "type": "percentage",
+                "defaultValue": 15,
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "description": "Monthly new customer acquisition rate"
+              },
+              {
+                "id": "churn_rate",
+                "label": "Customer Churn Rate",
+                "type": "percentage",
+                "defaultValue": 8,
+                "min": 0,
+                "max": 25,
+                "step": 0.5,
+                "description": "Monthly customer churn rate"
+              },
+              {
+                "id": "price_increase",
+                "label": "Price Increase",
+                "type": "percentage",
+                "defaultValue": 3,
+                "min": -10,
+                "max": 15,
+                "step": 0.5,
+                "description": "Annual price increase percentage"
+              },
+              {
+                "id": "seasonality_factor",
+                "label": "Seasonality Impact",
+                "type": "percentage",
+                "defaultValue": 12,
+                "min": 0,
+                "max": 30,
+                "step": 1,
+                "description": "Seasonal variation impact"
+              }
+            ],
+            "outputCharts": [
+              {
+                "library": "recharts",
+                "chartType": "line",
+                "title": "Revenue Projection",
+                "xAxisKey": "month",
+                "yAxisKey": ["base_case", "optimistic", "pessimistic"],
+                "colors": ["#3b82f6", "#22c55e", "#ef4444"]
+              }
+            ],
+            "scenarios": [
+              {
+                "id": "conservative",
+                "name": "Conservative",
+                "values": {
+                  "market_growth": 2,
+                  "customer_acquisition": 10,
+                  "churn_rate": 12,
+                  "price_increase": 1,
+                  "seasonality_factor": 8
+                }
+              },
+              {
+                "id": "aggressive",
+                "name": "Aggressive Growth",
+                "values": {
+                  "market_growth": 12,
+                  "customer_acquisition": 25,
+                  "churn_rate": 5,
+                  "price_increase": 8,
+                  "seasonality_factor": 15
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "order": 3
+    }
+  ],
+  "datasets": [
+    {
+      "id": "forecasting-results",
+      "name": "Forecasting Model Results",
+      "path": "/data/revenue-forecasting/results.json",
+      "type": "json",
+      "description": "Historical and forecasted revenue data with model performance metrics"
+    },
+    {
+      "id": "model-comparison",
+      "name": "Model Performance Comparison",
+      "path": "/data/revenue-forecasting/model-comparison.json",
+      "type": "json",
+      "description": "Comparison of different forecasting models and their accuracy"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "model-documentation",
+      "name": "Forecasting Model Documentation",
+      "path": "/downloads/revenue-forecasting-model.pdf",
+      "type": "pdf",
+      "description": "Technical documentation of the forecasting model and methodology"
+    },
+    {
+      "id": "forecast-template",
+      "name": "Forecasting Template",
+      "path": "/downloads/revenue-forecast-template.xlsx",
+      "type": "excel",
+      "description": "Excel template for implementing similar forecasting models"
+    }
+  ]
+}

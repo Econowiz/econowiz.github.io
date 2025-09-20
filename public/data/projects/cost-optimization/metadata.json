@@ -1,0 +1,145 @@
+{
+  "id": "cost-optimization",
+  "title": "Cost Optimization Analysis",
+  "category": "Business Intelligence",
+  "type": "case-study",
+  "description": "Comprehensive analysis using SQL and Tableau to identify cost reduction opportunities. Data-driven recommendations led to 15% reduction in operational expenses across multiple departments.",
+  "tags": ["SQL", "Tableau", "Cost Analysis", "Business Intelligence", "Data-Driven"],
+  "duration": "2 months",
+  "client": "Multi-department Organization",
+  "hero_image": "/images/projects/cost-optimization-hero.jpg",
+  "gallery": [
+    "/images/projects/cost-optimization-analysis.jpg",
+    "/images/projects/cost-optimization-dashboard.jpg",
+    "/images/projects/cost-optimization-results.jpg"
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Project Overview",
+      "type": "text",
+      "content": "## Challenge\n\nThe organization was facing increasing operational costs across multiple departments without clear visibility into spending patterns or optimization opportunities. Manual cost tracking and analysis were time-consuming and provided limited insights for strategic decision-making.\n\n### Key Pain Points:\n- Lack of centralized cost visibility across departments\n- Manual, time-intensive cost analysis processes\n- Limited insights into cost drivers and optimization opportunities\n- Difficulty in tracking cost reduction initiatives\n- No standardized approach to cost analysis across departments",
+      "order": 1
+    },
+    {
+      "id": "solution",
+      "title": "Analytical Approach",
+      "type": "mixed",
+      "content": "## The Solution\n\nDeveloped a comprehensive cost analysis framework using SQL for data extraction and Tableau for visualization, providing actionable insights for cost optimization across all departments.\n\n### Technologies Used:\n- **SQL**: Data extraction and transformation from multiple systems\n- **Tableau**: Interactive dashboards and visualizations\n- **Excel**: Detailed analysis and modeling\n- **Statistical Analysis**: Trend analysis and forecasting",
+      "components": [
+        {
+          "id": "cost-breakdown",
+          "title": "Cost Analysis Dashboard",
+          "type": "dashboard",
+          "config": {
+            "title": "Cost Optimization Analysis",
+            "layout": "grid",
+            "widgets": [
+              {
+                "id": "total-savings",
+                "title": "Total Cost Savings",
+                "type": "metric",
+                "size": "medium",
+                "config": {
+                  "value": 15,
+                  "label": "Cost Reduction",
+                  "format": "percentage",
+                  "trend": {
+                    "value": 15,
+                    "direction": "up",
+                    "label": "Across all departments"
+                  },
+                  "color": "#22c55e"
+                },
+                "position": { "x": 0, "y": 0, "w": 6, "h": 3 }
+              },
+              {
+                "id": "annual-savings",
+                "title": "Annual Savings",
+                "type": "metric",
+                "size": "medium",
+                "config": {
+                  "value": 250000,
+                  "label": "Annual Savings",
+                  "format": "currency",
+                  "trend": {
+                    "value": 250000,
+                    "direction": "up",
+                    "label": "Projected annual impact"
+                  },
+                  "color": "#3b82f6"
+                },
+                "position": { "x": 6, "y": 0, "w": 6, "h": 3 }
+              },
+              {
+                "id": "department-analysis",
+                "title": "Cost by Department",
+                "type": "chart",
+                "size": "large",
+                "config": {
+                  "library": "recharts",
+                  "chartType": "bar",
+                  "title": "Cost Analysis by Department",
+                  "xAxisKey": "department",
+                  "yAxisKey": ["before", "after"],
+                  "colors": ["#ef4444", "#22c55e"],
+                  "showGrid": true,
+                  "showLegend": true
+                },
+                "position": { "x": 0, "y": 3, "w": 12, "h": 6 }
+              }
+            ]
+          },
+          "dataSource": "cost-analysis-data"
+        }
+      ],
+      "order": 2
+    },
+    {
+      "id": "results",
+      "title": "Results & Impact",
+      "type": "text",
+      "content": "## Results & Impact\n\nThe cost optimization analysis delivered significant and measurable improvements across the organization.\n\n### Key Achievements:\n- **15% overall cost reduction** across all departments\n- **$250K annual savings** identified and implemented\n- **Standardized cost tracking** processes across departments\n- **Real-time cost monitoring** through automated dashboards\n- **Improved budget accuracy** for future planning\n\n### Department-Specific Results:\n- **Operations**: 18% cost reduction through process optimization\n- **IT**: 12% savings through vendor consolidation\n- **Marketing**: 20% efficiency improvement in campaign spending\n- **HR**: 10% reduction in recruitment and training costs\n\n### Business Impact:\n- Enhanced financial visibility and control\n- Data-driven decision making for cost management\n- Improved budget planning and forecasting accuracy\n- Established foundation for ongoing cost optimization\n- Created reusable framework for future analysis",
+      "order": 3
+    },
+    {
+      "id": "methodology",
+      "title": "Analysis Methodology",
+      "type": "text",
+      "content": "## Analysis Methodology\n\n### Data Collection & Preparation\n1. **Data Sources Integration**: Connected to ERP, accounting, and departmental systems\n2. **Data Cleansing**: Standardized cost categories and eliminated duplicates\n3. **Historical Analysis**: Analyzed 24 months of cost data for trend identification\n\n### Analysis Framework\n1. **Cost Categorization**: Grouped costs by department, category, and variability\n2. **Trend Analysis**: Identified patterns and anomalies in spending\n3. **Benchmark Comparison**: Compared costs against industry standards\n4. **Opportunity Identification**: Pinpointed specific areas for optimization\n\n### Implementation Approach\n1. **Quick Wins**: Immediate cost reduction opportunities\n2. **Strategic Initiatives**: Long-term optimization projects\n3. **Process Improvements**: Workflow and efficiency enhancements\n4. **Monitoring Framework**: Ongoing tracking and measurement systems",
+      "order": 4
+    }
+  ],
+  "datasets": [
+    {
+      "id": "cost-analysis-data",
+      "name": "Cost Analysis Dataset",
+      "path": "/data/cost-optimization/cost-analysis.json",
+      "type": "json",
+      "description": "Department-wise cost data before and after optimization"
+    },
+    {
+      "id": "savings-tracking",
+      "name": "Savings Tracking Data",
+      "path": "/data/cost-optimization/savings-tracking.json",
+      "type": "json",
+      "description": "Monthly tracking of cost savings implementation"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "cost-analysis-report",
+      "name": "Comprehensive Cost Analysis Report",
+      "path": "/downloads/cost-optimization-report.pdf",
+      "type": "pdf",
+      "description": "Detailed analysis report with findings and recommendations"
+    },
+    {
+      "id": "tableau-dashboard",
+      "name": "Interactive Tableau Dashboard",
+      "path": "/downloads/cost-optimization-dashboard.twbx",
+      "type": "document",
+      "description": "Tableau workbook with interactive cost analysis dashboard"
+    }
+  ]
+}
