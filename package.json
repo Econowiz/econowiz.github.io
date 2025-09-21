@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
+    "typecheck": "tsc -b --pretty false",
     "build:analyze": "tsc -b && vite build --mode analyze",
     "build:prod": "pnpm run validate-env && NODE_ENV=production VALIDATE_ENV=true pnpm run build",
     "build:gh-pages": "NODE_ENV=production pnpm run build",
