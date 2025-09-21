@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import type { PlotData, Config, ModeBarDefaultButtons } from 'plotly.js'
-import Plot from 'react-plotly.js'
+import type { PlotParams } from 'react-plotly.js'
+// Dynamic Plotly component will be created at runtime using the factory
 import type { PlotlyConfig } from '../../../types'
 import BaseChart from './BaseChart'
 
@@ -19,6 +20,52 @@ const PlotlyWrapper: React.FC<PlotlyWrapperProps> = ({
   error,
   className
 }) => {
+  const [PlotComponent, setPlotComponent] = useState<React.ComponentType<PlotParams> | null>(null)
+
+  useEffect(() => {
+    let mounted = true
+    ;(async () => {
+      try {
+        const types = Array.from(new Set(config.traces.map(t => t.type))) as string[]
+        // Try partial Plotly build: core + only required trace modules
+        let Plotly: unknown
+        try {
+          const core = (await import('plotly.js/lib/core')).default
+          Plotly = core
+          const register = async (p: string) => {
+            const mod = await import(/* @vite-ignore */ p)
+            core.register([mod.default])
+          }
+          for (const type of types) {
+            switch (type) {
+              case 'bar': await register('plotly.js/lib/bar'); break
+              case 'scatter': await register('plotly.js/lib/scatter'); break
+              case 'line': await register('plotly.js/lib/line'); break
+              case 'heatmap': await register('plotly.js/lib/heatmap'); break
+              case 'pie': await register('plotly.js/lib/pie'); break
+              case 'histogram': await register('plotly.js/lib/histogram'); break
+              case 'box': await register('plotly.js/lib/box'); break
+              default:
+                // Unknown trace → fall back to full dist-min
+                Plotly = (await import('plotly.js')).default
+                break
+            }
+          }
+        } catch {
+          // If partial build fails in any way, use full build
+          Plotly = (await import('plotly.js')).default
+        }
+
+        const createPlotlyComponent = (await import('react-plotly.js/factory')).default as (p: unknown) => React.ComponentType<PlotParams>
+        const Comp = createPlotlyComponent(Plotly)
+        if (mounted) setPlotComponent(() => Comp)
+      } catch (e) {
+        // In case of unexpected dynamic import issues, do nothing; BaseChart will show error if provided
+        console.error('Failed to load Plotly dynamically', e)
+      }
+    })()
+    return () => { mounted = false }
+  }, [config.traces])
   const plotData = useMemo(() => {
     return config.traces.map((trace, index) => {
       const traceData: Partial<PlotData> = {
@@ -107,17 +154,21 @@ const PlotlyWrapper: React.FC<PlotlyWrapperProps> = ({
     <BaseChart
       config={config}
       data={data}
-      loading={loading}
+      loading={loading || !PlotComponent}
       error={error}
       className={className}
     >
-      <Plot
-        data={plotData}
-        layout={layout}
-        config={plotConfig}
-        style={{ width: '100%', height: '100%' }}
-        useResizeHandler={true}
-      />
+      {PlotComponent ? (
+        <PlotComponent
+          data={plotData}
+          layout={layout}
+          config={plotConfig}
+          style={{ width: '100%', height: '100%' }}
+          useResizeHandler={true}
+        />
+      ) : (
+        <div />
+      )}
     </BaseChart>
   )
 }
