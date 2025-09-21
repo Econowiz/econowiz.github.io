@@ -98,13 +98,13 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl lg:text-4xl font-bold text-white-1 text-left">About me</h2>
+        <h2 className="page-title text-left">About me</h2>
 
 
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
 
-        <div className="space-y-4 text-light-gray leading-relaxed text-left">
-          <p>
+        <div className="space-y-4 text-left">
+          <p className="body-normal">
             I transform business complexity into competitive advantage through financial intelligence and advanced analytics. Whether optimizing costs, improving operational efficiency, or forecasting growth, my unique combination of controller expertise and data science delivers measurable results across diverse business environments.
           </p>
         </div>
@@ -123,7 +123,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
       >
 
 
-        <h3 className="text-2xl font-semibold text-white-1 mb-6 tracking-wide">Featured Projects</h3>
+        <h3 className="section-heading mb-6 tracking-wide">Featured Projects</h3>
 
         <div className="w-full max-w-7xl mx-auto">
           <HorizontalCarousel>
@@ -146,11 +146,11 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
                 <FluidBlobs className="absolute inset-0" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.35)_35%,rgba(0,0,0,0.6))]"></div>
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-orange-yellow/20 text-orange-yellow text-xs font-medium rounded-full backdrop-blur">
+                  <span className="nav-text px-3 py-1 bg-orange-yellow/20 text-orange-yellow rounded-full backdrop-blur">
                     {project.category}
                   </span>
                 </div>
-                <h4 className="absolute bottom-4 left-4 right-4 text-white-1 text-xl font-semibold tracking-wide">
+                <h4 className="card-title absolute bottom-4 left-4 right-4">
                   {project.title}
                 </h4>
               </div>
@@ -161,7 +161,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
                   <div className="leading-snug">
                     <span className="text-[11px] uppercase tracking-wide text-white-1/80">Challenge</span>
                     <p
-                      className="mt-1 text-light-gray/90 text-sm leading-snug max-w-[42ch]"
+                      className="body-small mt-1 text-light-gray/90 leading-snug max-w-[42ch]"
                       style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as CSSProperties}
                     >
                       {project.challenge}
@@ -172,7 +172,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
                 <div className="mt-3 pt-3 border-t border-jet flex items-center justify-end gap-4">
                   <button
                     onClick={() => handleProjectClick(project.id)}
-                    className="ml-auto flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors text-sm font-medium group/btn"
+                    className="nav-text ml-auto flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group/btn"
                   >
                     View Case Study
                     <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
@@ -194,7 +194,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
           <button
             type="button"
             onClick={() => navigate('/portfolio')}
-            className="inline-flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors text-sm font-medium group"
+            className="nav-text inline-flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group"
           >
             See all projects
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />

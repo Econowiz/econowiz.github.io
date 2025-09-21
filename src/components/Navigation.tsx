@@ -28,7 +28,7 @@ const Navigation = ({ activeTab, setActiveTab }: NavigationProps) => {
           <button
             key={item.id}
             onClick={() => handleNavClick(item.id)}
-            className={`relative px-8 py-4 text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+            className={`nav-text relative px-8 py-4 whitespace-nowrap transition-all duration-300 ${
               activeTab === item.id ? 'text-white-1' : 'text-light-gray hover:text-light-gray-70'
             }`}
           >

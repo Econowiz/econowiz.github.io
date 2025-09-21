@@ -1,5 +1,5 @@
-import React from 'react'
-import { RechartsWrapper } from './charts'
+import React, { Suspense } from 'react'
+const RechartsWrapper = React.lazy(() => import('./charts/RechartsWrapper'))
 import type { DashboardComponent, DashboardWidget, MetricConfig, ChartConfig } from '../../types'
 
 // Types for dashboard data
@@ -189,22 +189,24 @@ const DashboardWidgetComponent: React.FC<DashboardWidgetComponentProps> = ({ wid
       return (
         <div className={`bg-eerie-black-2 p-4 rounded-lg border border-jet hover:border-gray-600 transition-all duration-200 ${getSizeClasses(size)}`}>
           <h4 className="card-title mb-3">{widget.title}</h4>
-          <RechartsWrapper
-            config={{
-              library: 'recharts',
-              chartType: chartConfig.chartType,
-              xAxisKey: chartConfig.xAxisKey,
-              yAxisKey: chartConfig.yAxisKey,
-              colors: chartConfig.colors,
-              showGrid: chartConfig.showGrid,
-              showLegend: chartConfig.showLegend,
-              title: chartConfig.title,
-              xAxisLabel: chartConfig.xAxisLabel,
-              yAxisLabel: chartConfig.yAxisLabel,
-              height: 280
-            }}
-            data={chartData}
-          />
+          <Suspense fallback={<div className="h-[280px] w-full bg-jet animate-pulse rounded" />}>
+            <RechartsWrapper
+              config={{
+                library: 'recharts',
+                chartType: chartConfig.chartType,
+                xAxisKey: chartConfig.xAxisKey,
+                yAxisKey: chartConfig.yAxisKey,
+                colors: chartConfig.colors,
+                showGrid: chartConfig.showGrid,
+                showLegend: chartConfig.showLegend,
+                title: chartConfig.title,
+                xAxisLabel: chartConfig.xAxisLabel,
+                yAxisLabel: chartConfig.yAxisLabel,
+                height: 280
+              }}
+              data={chartData}
+            />
+          </Suspense>
         </div>
       )
     }

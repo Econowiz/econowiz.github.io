@@ -43,6 +43,7 @@ const UnifiedCard = ({
           <img
             src={image}
             alt={`${title} cover`}
+            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
@@ -54,28 +55,28 @@ const UnifiedCard = ({
         
         {/* Category Badge */}
         <div className="absolute top-3 left-4">
-          <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(category)}`}>
+          <span className={`px-3 py-1 rounded-full nav-text ${getCategoryColor(category)}`}>
             {category}
           </span>
         </div>
-        
+
         {/* Date (for blog posts) */}
         {date && (
           <div className="absolute top-3 right-4">
-            <span className="text-white-1/80 text-xs bg-black/30 px-2 py-1 rounded">
+            <span className="nav-text text-white-1/80 bg-black/30 px-2 py-1 rounded">
               {date}
             </span>
           </div>
         )}
-        
+
         {/* Title */}
-        <h3 className="absolute bottom-3 left-4 right-4 text-white-1 font-semibold text-lg tracking-wide line-clamp-2 group-hover:text-orange-yellow transition-colors">
+        <h3 className="card-title absolute bottom-3 left-4 right-4 line-clamp-2 group-hover:text-orange-yellow transition-colors">
           {title}
         </h3>
       </div>
 
       {/* Card Description */}
-      <p className="text-light-gray text-sm leading-relaxed mb-4 line-clamp-3">
+      <p className="body-small mb-4 line-clamp-3">
         {description}
       </p>
 
@@ -85,7 +86,7 @@ const UnifiedCard = ({
           {tags.map((tag, tagIndex) => (
             <span
               key={tagIndex}
-              className="px-2 py-1 bg-eerie-black-2 text-light-gray text-xs rounded border border-jet"
+              className="px-2 py-1 bg-eerie-black-2 text-light-gray nav-text rounded border border-jet"
             >
               {tag}
             </span>
@@ -100,7 +101,7 @@ const UnifiedCard = ({
       <div className="flex items-center justify-between mt-4">
         <button
           onClick={onCardClick}
-          className="flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors text-sm font-medium"
+          className="nav-text flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors"
         >
           {tags ? 'View Details' : 'Read More'}
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

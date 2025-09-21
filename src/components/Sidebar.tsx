@@ -69,7 +69,7 @@ const Sidebar = () => {
             />
           </div>
 
-          <h1 className="display-number text-white-1 font-heading">
+          <h1 className="sidebar-name">
             Franck Rafiou
           </h1>
 

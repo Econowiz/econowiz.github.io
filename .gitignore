@@ -39,3 +39,6 @@ dist-ssr
 *.pfx
 config.json
 secrets.json
+
+# Copilot instructions
+.github/copilot-instructions.md

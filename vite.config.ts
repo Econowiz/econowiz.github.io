@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // Simple environment validation for production builds
 function validateProductionEnv() {
@@ -54,22 +55,36 @@ function envValidationPlugin() {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [
-    react(),
-    envValidationPlugin()
-  ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+export default defineConfig(({ mode }) => {
+  const isAnalyze = mode === 'analyze'
+  
+  return {
+    plugins: [
+      react(),
+      envValidationPlugin(),
+      // Add bundle analyzer when running in analyze mode
+      ...(isAnalyze ? [
+        visualizer({
+          filename: 'dist/bundle-analysis.html',
+          open: true,
+          gzipSize: true,
+          brotliSize: true,
+          template: 'treemap'
+        })
+      ] : [])
+    ],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
     },
-  },
-  // GitHub Pages configuration
-  base: process.env.NODE_ENV === 'production' ? '/' : '/',
-  build: {
-    // Ensure environment variables are available at build time
-    rollupOptions: {
-      external: [],
+    // GitHub Pages configuration
+    base: process.env.NODE_ENV === 'production' ? '/' : '/',
+    build: {
+      // Ensure environment variables are available at build time
+      rollupOptions: {
+        external: [],
+      },
     },
-  },
+  }
 })
