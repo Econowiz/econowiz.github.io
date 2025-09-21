@@ -3,27 +3,32 @@
 
   /* Page-level headings - h1 */
   .page-title {
-    @apply font-heading text-heading-xl text-white-1 mb-6 font-semibold tracking-wide;
+    @apply font-sans text-heading-md text-white-1 mb-6 font-semibold tracking-wide;
+  }
+
+  /* Sidebar name (left only) */
+  .sidebar-name {
+    @apply font-heading text-heading-md text-white-1 font-semibold tracking-wide;
   }
 
   /* Section headings - h2 */
   .section-heading {
-    @apply font-heading text-heading-lg text-white-1 mb-4 font-semibold;
+    @apply font-sans text-heading-sm text-white-1 mb-4 font-semibold;
   }
 
   /* Subsection headings - h3 */
   .subsection-heading {
-    @apply font-heading text-heading-sm text-white-1 mb-3 font-medium;
+    @apply font-sans text-heading-xs text-white-1 mb-3 font-medium;
   }
 
   /* Card/Component titles - h4 */
   .card-title {
-    @apply font-heading text-heading-xs text-white-1 mb-2 font-medium;
+    @apply font-sans text-heading-xs text-white-1 mb-2 font-medium;
   }
 
   /* Small headings - h5, h6 */
   .small-heading {
-    @apply font-heading text-base text-white-1 mb-2 font-normal;
+    @apply font-sans text-base text-white-1 mb-2 font-normal;
   }
 
   /* Body text variants */
@@ -41,7 +46,7 @@
 
   /* Interactive elements */
   .interactive-title {
-    @apply font-heading text-heading-sm text-white-1 font-medium mb-3;
+    @apply font-sans text-heading-xs text-white-1 font-medium mb-3;
   }
 
   /* Navigation and UI text */
@@ -74,15 +79,15 @@
 
   /* Content-specific styles */
   .project-title {
-    @apply font-heading text-heading-xl text-white-1 mb-6 font-semibold tracking-wide;
+    @apply font-sans text-heading-md text-white-1 mb-6 font-semibold tracking-wide;
   }
 
   .project-section {
-    @apply font-heading text-heading-lg text-white-1 mb-4 font-medium;
+    @apply font-sans text-heading-sm text-white-1 mb-4 font-medium;
   }
 
   .project-subsection {
-    @apply font-heading text-heading-sm text-white-1 mb-2 font-medium;
+    @apply font-sans text-heading-xs text-white-1 mb-2 font-medium;
   }
 
   .project-detail {
