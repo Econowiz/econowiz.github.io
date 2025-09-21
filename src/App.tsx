@@ -51,8 +51,6 @@ function MetaUpdater() {
   return null
 }
 
-*/
-
 function App() {
   return (
     <ErrorBoundary>
