@@ -276,7 +276,8 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
         <p className="body-normal">{error || 'Project not found.'}</p>
         <button
           onClick={onBack}
-          className="mt-4 text-orange-yellow hover:text-white-1 transition-colors"
+          aria-label="Back to portfolio"
+          className="mt-4 text-orange-yellow hover:text-white-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
         >
           ← Back to Portfolio
         </button>
@@ -285,7 +286,7 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="project-title">
 
       {/* Header */}
       <motion.div
@@ -295,13 +296,14 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
       >
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors mb-6"
+          aria-label="Back to portfolio"
+          className="flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
         >
           <ArrowLeft size={20} />
           Back to Portfolio
         </button>
 
-        <h1 className="project-title">{projectData.title}</h1>
+        <h1 id="project-title" className="project-title">{projectData.title}</h1>
 
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex items-center gap-2 text-light-gray">
@@ -538,7 +540,7 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
                 href={attachment.path}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-4 bg-eerie-black-2 rounded-lg border border-jet hover:border-orange-yellow transition-colors group"
+                className="flex items-center gap-3 p-4 bg-eerie-black-2 rounded-lg border border-jet hover:border-orange-yellow transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70"
               >
                 <div className="flex-shrink-0">
                   {attachment.type === 'pdf' && <span className="text-red-400">📄</span>}
@@ -560,7 +562,7 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
           </div>
         </motion.div>
       )}
-    </div>
+    </section>
   )
 }
 
