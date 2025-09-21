@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Calculator } from 'lucide-react'
+import { Parser } from 'expr-eval'
 import type { CalculatorConfig, CalculatorField } from '../../../types'
 
 interface BaseCalculatorProps {
@@ -28,44 +29,31 @@ const BaseCalculator: React.FC<BaseCalculatorProps> = ({
   // Calculate result whenever values change
   useEffect(() => {
     try {
-      // Create a safe evaluation context
-      const context = { ...values, Math }
-      
-      // Simple formula evaluation (in production, use a proper expression parser)
-      const formula = config.formula.replace(/\b(\w+)\b/g, (match) => {
-        if (match in context) {
-          return `context.${match}`
-        }
-        return match
-      })
-      
-      const calculatedResult = eval(formula)
-      setResult(calculatedResult)
+      const parser = new Parser({ allowMemberAccess: false })
+      const sanitize = (s: string) => s.replace(/\bMath\./g, '')
 
-      // Calculate additional outputs
+      // Main result
+      const expr = parser.parse(sanitize(config.formula))
+      const calculatedResult = Number(expr.evaluate(values))
+      setResult(Number.isFinite(calculatedResult) ? calculatedResult : 0)
+
+      // Additional outputs
       const additionalResults: Record<string, number> = {}
       if (config.additionalOutputs) {
-        config.additionalOutputs.forEach(output => {
+        for (const output of config.additionalOutputs) {
           try {
-            const outputFormula = output.formula.replace(/\b(\w+)\b/g, (match) => {
-              if (match in context) {
-                return `context.${match}`
-              }
-              return match
-            })
-            additionalResults[output.id] = eval(outputFormula)
+            const outExpr = parser.parse(sanitize(output.formula))
+            const val = Number(outExpr.evaluate(values))
+            additionalResults[output.id] = Number.isFinite(val) ? val : 0
           } catch (error) {
             console.error(`Error calculating ${output.id}:`, error)
             additionalResults[output.id] = 0
           }
-        })
+        }
       }
-      
+
       setAdditionalOutputs(additionalResults)
-      
-      if (onResultChange) {
-        onResultChange(calculatedResult, additionalResults)
-      }
+      if (onResultChange) onResultChange(calculatedResult, additionalResults)
     } catch (error) {
       console.error('Error calculating result:', error)
       setResult(0)
