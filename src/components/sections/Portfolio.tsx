@@ -222,14 +222,14 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="portfolio-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="page-title text-left">Portfolio</h2>
+        <h2 id="portfolio-title" className="page-title text-left">Portfolio</h2>
 
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
       </motion.div>
@@ -239,13 +239,16 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
+        role="group"
+        aria-label="Project categories"
         className="flex flex-wrap gap-2"
       >
         {categories.map((filter) => (
           <button
             key={filter}
             onClick={() => setActiveFilter(filter)}
-            className={`nav-text px-4 py-2 rounded-lg transition-all duration-300 ${
+            aria-pressed={activeFilter === filter}
+            className={`nav-text px-4 py-2 rounded-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 ${
               activeFilter === filter
                 ? 'bg-orange-yellow text-smoky-black'
                 : 'bg-gradient-jet text-light-gray hover:text-orange-yellow border border-jet'
@@ -284,7 +287,7 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
           <p className="body-normal">No projects found for the selected category.</p>
         </motion.div>
       )}
-    </div>
+    </section>
   )
 }
 

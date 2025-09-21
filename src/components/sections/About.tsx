@@ -91,14 +91,14 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="about-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="page-title text-left">About me</h2>
+        <h2 id="about-title" className="page-title text-left">About me</h2>
 
 
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
@@ -172,7 +172,8 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
                 <div className="mt-3 pt-3 border-t border-jet flex items-center justify-end gap-4">
                   <button
                     onClick={() => handleProjectClick(project.id)}
-                    className="nav-text ml-auto flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group/btn"
+                    aria-label={`View case study: ${project.title}`}
+                    className="nav-text ml-auto flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group/btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
                   >
                     View Case Study
                     <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
@@ -194,7 +195,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
           <button
             type="button"
             onClick={() => navigate('/portfolio')}
-            className="nav-text inline-flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group"
+            className="nav-text inline-flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
           >
             See all projects
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -203,7 +204,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
       </motion.div>
 
 
-    </div>
+    </section>
   )
 }
 

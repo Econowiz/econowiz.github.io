@@ -170,14 +170,14 @@ const Blog = () => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="blog-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="page-title text-left">Blog</h2>
+        <h2 id="blog-title" className="page-title text-left">Blog</h2>
 
         <div className="h-0.5 w-12 bg-orange-yellow mb-6"></div>
       </motion.div>
@@ -211,7 +211,7 @@ const Blog = () => {
           More articles on financial analytics, investment strategy, and business intelligence coming soon!
         </p>
       </motion.div>
-    </div>
+    </section>
   )
 }
 

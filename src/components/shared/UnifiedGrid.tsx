@@ -9,6 +9,7 @@ interface UnifiedGridProps {
 const UnifiedGrid = ({ children, className = "" }: UnifiedGridProps) => {
   return (
     <motion.div
+      role="list"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}

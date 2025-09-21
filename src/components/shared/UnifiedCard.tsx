@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, type LucideIcon } from 'lucide-react'
 import { type ReactNode } from 'react'
 
@@ -29,11 +29,15 @@ const UnifiedCard = ({
   getCategoryColor,
   children
 }: UnifiedCardProps) => {
+  const prefersReducedMotion = useReducedMotion()
+  const titleId = `card-title-${index}`
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
+    <motion.article
+      role="listitem"
+      aria-labelledby={titleId}
+      initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.1 * index }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: prefersReducedMotion ? 0 : 0.1 * index }}
       className="bg-gradient-jet p-6 rounded-xl border border-jet hover:border-orange-yellow/20 transition-all duration-300 group"
     >
       {/* Card Header - unified hero section */}
@@ -70,7 +74,7 @@ const UnifiedCard = ({
         )}
 
         {/* Title */}
-        <h3 className="card-title absolute bottom-3 left-4 right-4 line-clamp-2 group-hover:text-orange-yellow transition-colors">
+        <h3 id={titleId} className="card-title absolute bottom-3 left-4 right-4 line-clamp-2 group-hover:text-orange-yellow transition-colors">
           {title}
         </h3>
       </div>
@@ -101,7 +105,8 @@ const UnifiedCard = ({
       <div className="flex items-center justify-between mt-4">
         <button
           onClick={onCardClick}
-          className="nav-text flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors"
+          aria-label={`${tags ? 'View details for' : 'Read more:'} ${title}`}
+          className="nav-text flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
         >
           {tags ? 'View Details' : 'Read More'}
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -111,7 +116,7 @@ const UnifiedCard = ({
           <Icon size={20} className="text-light-gray group-hover:text-orange-yellow transition-colors" />
         )}
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
 

@@ -16,8 +16,10 @@ import ErrorBoundary from './components/ErrorBoundary'
 function App() {
   return (
     <ErrorBoundary>
+        {/* Skip link for keyboard users */}
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <Router>
-          <main className="flex flex-col lg:flex-row max-w-7xl mx-auto p-4 lg:p-8 gap-6 overflow-x-hidden">
+          <main id="main-content" className="flex flex-col lg:flex-row max-w-7xl mx-auto p-4 lg:p-8 gap-6 overflow-x-hidden">
             {/* Sidebar */}
             <Sidebar />
 

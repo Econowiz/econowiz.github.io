@@ -22,13 +22,14 @@ const Navigation = ({ activeTab, setActiveTab }: NavigationProps) => {
   }
 
   return (
-    <nav className="border-b border-jet bg-eerie-black-1 rounded-t-2xl">
-      <div className="flex justify-center">
+    <nav aria-label="Primary" className="border-b border-jet bg-eerie-black-1 rounded-t-2xl">
+      <div className="flex justify-center overflow-x-auto px-2 sm:px-0">
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => handleNavClick(item.id)}
-            className={`nav-text relative px-8 py-4 whitespace-nowrap transition-all duration-300 ${
+            aria-current={activeTab === item.id ? 'page' : undefined}
+            className={`nav-text relative px-4 sm:px-6 md:px-8 py-4 whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 focus-visible:rounded-md ${
               activeTab === item.id ? 'text-white-1' : 'text-light-gray hover:text-light-gray-70'
             }`}
           >

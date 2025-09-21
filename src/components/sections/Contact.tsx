@@ -139,14 +139,14 @@ const Contact = () => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="contact-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="page-title text-left">Contact</h2>
+        <h2 id="contact-title" className="page-title text-left">Contact</h2>
         
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
       </motion.div>
@@ -316,7 +316,7 @@ const Contact = () => {
           </div>
         </form>
       </motion.div>
-    </div>
+    </section>
   )
 }
 

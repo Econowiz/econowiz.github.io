@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { EnvelopeIcon, LinkIcon, MapPinIcon, ChevronDownIcon, CodeBracketIcon, DocumentDuplicateIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { SiGithub, SiLinkedin, SiThreads } from 'react-icons/si'
 
@@ -7,6 +7,8 @@ import { SiGithub, SiLinkedin, SiThreads } from 'react-icons/si'
 const Sidebar = () => {
   const [isContactOpen, setIsContactOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+
+  const prefersReducedMotion = useReducedMotion()
 
   const contactInfo = [
     {
@@ -54,8 +56,9 @@ const Sidebar = () => {
     <motion.aside
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
       className="lg:w-80 w-full"
+      aria-label="Profile and contacts"
     >
       <div className="relative bg-eerie-black-1 rounded-2xl p-6 shadow-2xl shadow-black/50 ring-1 ring-white/10 border border-white/5 backdrop-blur-sm">
         {/* Profile Section */}
@@ -95,13 +98,13 @@ const Sidebar = () => {
           onClick={() => setIsContactOpen(!isContactOpen)}
           aria-expanded={isContactOpen}
           aria-controls="contact-panel"
-          className="relative w-full flex items-center justify-center bg-gradient-onyx text-orange-yellow py-2 px-3 rounded-lg mb-0 hover:bg-gradient-yellow-2 transition-all duration-300"
+          className="relative w-full flex items-center justify-center bg-gradient-onyx text-orange-yellow py-2 px-3 rounded-lg mb-0 hover:bg-gradient-yellow-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70"
         >
           <span className="nav-text">Show Contacts</span>
           <motion.div
             className="absolute right-3"
             animate={{ rotate: isContactOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
           >
             <ChevronDownIcon className="w-4 h-4" />
           </motion.div>
@@ -118,7 +121,7 @@ const Sidebar = () => {
             height: isContactOpen ? 'auto' : 0,
             opacity: isContactOpen ? 1 : 0
           }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
           className="overflow-hidden"
         >
           <div className="space-y-3 mt-5">
@@ -129,7 +132,7 @@ const Sidebar = () => {
                   key={contact.label}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: prefersReducedMotion ? 0 : index * 0.1, duration: prefersReducedMotion ? 0 : 0.2 }}
                   className="flex items-center gap-3"
                 >
                   <IconComponent className="w-4 h-4 text-light-gray" />
@@ -143,7 +146,7 @@ const Sidebar = () => {
                           href={contact.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="body-small text-white-2 hover:text-orange-yellow transition-colors text-left"
+                          className="body-small text-white-2 hover:text-orange-yellow transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
                         >
                           {contact.value}
                         </a>
@@ -157,7 +160,7 @@ const Sidebar = () => {
                             <button
                               type="button"
                               onClick={(e) => { e.preventDefault(); navigator.clipboard.writeText('frafiou@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 1300); }}
-                              className="text-light-gray opacity-60 hover:opacity-100 focus:opacity-100 hover:text-orange-yellow transition-opacity"
+                              className="text-light-gray opacity-60 hover:opacity-100 focus:opacity-100 hover:text-orange-yellow transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
                               aria-label="Copy email"
                               title="Copy email"
                             >
@@ -195,9 +198,9 @@ const Sidebar = () => {
                 aria-label={social.name}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 bg-gradient-onyx rounded-lg flex items-center justify-center hover:bg-gradient-yellow-2 transition-all duration-300"
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.1 }}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
+                className="w-10 h-10 bg-gradient-onyx rounded-lg flex items-center justify-center hover:bg-gradient-yellow-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70"
               >
                 <SocialIcon size={20} className="text-light-gray" />
               </motion.a>
