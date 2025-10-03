@@ -107,8 +107,8 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
             <motion.article
               data-carousel-item
               key={project.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.5, delay: 0.05 * index }}
               className="snap-center shrink-0 w-[85%] sm:w-[58%] md:w-[45%] lg:w-[42%] xl:w-[38%] group relative overflow-hidden rounded-2xl border border-jet bg-gradient-jet hover:border-orange-yellow/30 transition-all duration-300 aspect-[4/5] flex flex-col"
