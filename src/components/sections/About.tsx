@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import type { CSSProperties } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Zap, Target, DollarSign, ArrowRight } from 'lucide-react'
+import { Target, ArrowRight } from 'lucide-react'
 import FluidBlobs from '@/components/decor/FluidBlobs'
 import HorizontalCarousel from '@/components/decor/HorizontalCarousel'
 import InfoBlocks from '@/components/sections/InfoBlocks'
@@ -17,37 +17,15 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
 
   const featuredProjects = [
     {
-      id: 'financial-automation',
-      icon: Zap,
-      title: 'Financial Process Automation',
-      challenge: 'Manual reconciliation processes taking 40+ hours monthly with frequent errors',
-      solution: 'Built Python automation with data validation and error detection',
-      impact: 'Reduced processing time by 85%, eliminated errors, freed team for strategic work',
-      businessValue: '$20K+ annual savings + improved accuracy + enhanced team productivity',
-      category: 'Process Automation',
-      tags: ['Python', 'Automation', 'VBA', 'Process Optimization']
-    },
-    {
-      id: 'revenue-forecasting',
+      id: 'intelligent-financial-close',
       icon: Target,
-      title: 'Revenue Forecasting Model',
-      challenge: 'Inaccurate revenue predictions affecting strategic planning and resource allocation',
-      solution: 'Developed predictive analytics model using historical data and market indicators',
-      impact: 'Achieved 92% forecasting accuracy, improved planning cycles',
-      businessValue: 'Enhanced strategic decision-making + optimized resource allocation',
+      title: 'Intelligent Financial Close System',
+      challenge: '12+ day month-end close with fragmented data and heavy manual review',
+      solution: 'Implemented ML-assisted anomaly detection, automated workflows, and executive dashboards',
+      impact: '73.7% automation rate, $285K annual savings, and a 280% ROI with an 8-hour close',
+      businessValue: 'Financial transparency, faster decision cycles, and confident compliance posture',
       category: 'Financial Analytics',
-      tags: ['Python', 'Machine Learning', 'Forecasting', 'Analytics']
-    },
-    {
-      id: 'cost-optimization',
-      icon: DollarSign,
-      title: 'Cost Optimization Analysis',
-      challenge: 'Rising operational costs without clear visibility into cost drivers',
-      solution: 'Comprehensive cost analysis using advanced analytics and process mapping',
-      impact: 'Identified and implemented 15% cost reduction across multiple departments',
-      businessValue: 'Significant cost savings + improved operational efficiency + better cost control',
-      category: 'Business Intelligence',
-      tags: ['SQL', 'Tableau', 'Cost Analysis', 'Data Visualization']
+      tags: ['Python', 'Machine Learning', 'Process Automation', 'Analytics']
     }
   ]
 
@@ -69,11 +47,9 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
     }
   }
 
-// TODO [Project Cover Images]
-// - Optionally add project.coverUrl to each item in featuredProjects (e.g., '/images/projects/<id>.jpg')
-// - Place images under: public/images/projects/
-// - In the hero below, render an <img> behind the gradient overlays when coverUrl exists
-// - Keep the gradient fallback via coverFor(category) when no image is provided
+// NOTE: Optional enhancement — add project.coverUrl to featuredProjects (e.g., '/images/projects/<id>.jpg')
+//       Place images under public/images/projects/ and render them behind the gradient overlays below.
+//       Keep the gradient fallback via coverFor(category) when no image is provided.
 
   // helpers for presentation
 
@@ -91,21 +67,21 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="about-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl lg:text-4xl font-bold text-white-1 text-left">About me</h2>
+        <h2 id="about-title" className="page-title text-left">About me</h2>
 
 
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
 
-        <div className="space-y-4 text-light-gray leading-relaxed text-left">
-          <p>
-            I transform business complexity into competitive advantage through financial intelligence and advanced analytics. Whether optimizing costs, improving operational efficiency, or forecasting growth, my unique combination of controller expertise and data science delivers measurable results across diverse business environments.
+        <div className="space-y-4 text-left">
+          <p className="body-normal">
+            I translate complex business operations into clear, data-driven action. Whether modernizing finance workflows, building analytics platforms, or partnering with operations teams, I combine controller-level insight with modern data science to unlock measurable results for operators and decision makers.
           </p>
         </div>
       </motion.div>
@@ -123,7 +99,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
       >
 
 
-        <h3 className="text-2xl font-semibold text-white-1 mb-6 tracking-wide">Featured Projects</h3>
+        <h3 className="section-heading mb-6 tracking-wide">Featured Projects</h3>
 
         <div className="w-full max-w-7xl mx-auto">
           <HorizontalCarousel>
@@ -146,11 +122,11 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
                 <FluidBlobs className="absolute inset-0" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.35)_35%,rgba(0,0,0,0.6))]"></div>
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-orange-yellow/20 text-orange-yellow text-xs font-medium rounded-full backdrop-blur">
+                  <span className="nav-text px-3 py-1 bg-orange-yellow/20 text-orange-yellow rounded-full backdrop-blur">
                     {project.category}
                   </span>
                 </div>
-                <h4 className="absolute bottom-4 left-4 right-4 text-white-1 text-xl font-semibold tracking-wide">
+                <h4 className="card-title absolute bottom-4 left-4 right-4">
                   {project.title}
                 </h4>
               </div>
@@ -161,7 +137,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
                   <div className="leading-snug">
                     <span className="text-[11px] uppercase tracking-wide text-white-1/80">Challenge</span>
                     <p
-                      className="mt-1 text-light-gray/90 text-sm leading-snug max-w-[42ch]"
+                      className="body-small mt-1 text-light-gray/90 leading-snug max-w-[42ch]"
                       style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as CSSProperties}
                     >
                       {project.challenge}
@@ -172,7 +148,8 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
                 <div className="mt-3 pt-3 border-t border-jet flex items-center justify-end gap-4">
                   <button
                     onClick={() => handleProjectClick(project.id)}
-                    className="ml-auto flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors text-sm font-medium group/btn"
+                    aria-label={`View case study: ${project.title}`}
+                    className="nav-text ml-auto flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group/btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
                   >
                     View Case Study
                     <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
@@ -194,7 +171,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
           <button
             type="button"
             onClick={() => navigate('/portfolio')}
-            className="inline-flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors text-sm font-medium group"
+            className="nav-text inline-flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
           >
             See all projects
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -203,7 +180,7 @@ const About = ({ setActiveTab, setSelectedProject }: AboutProps = {}) => {
       </motion.div>
 
 
-    </div>
+    </section>
   )
 }
 

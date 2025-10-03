@@ -1,124 +1,180 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
-import { Calculator, BarChart, TrendingUp, Settings } from 'lucide-react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+// import { Calculator, BarChart, TrendingUp, Settings } from 'lucide-react'
 import ProjectDetail from './ProjectDetail'
 import { UnifiedCard, UnifiedGrid } from '../shared'
+import { getPortfolioCategoryStyles } from '../shared/categoryStyles'
+
+interface ProjectSummary {
+  id: string
+  title: string
+  category: string
+  type: string
+  description: string
+  tags: string[]
+  duration: string
+  client?: string
+  hero_image?: string
+  hasInteractive: boolean
+  featured: boolean
+  order: number
+}
+
+interface ProjectsIndex {
+  projects: ProjectSummary[]
+  categories: Array<{
+    id: string
+    name: string
+    description: string
+    color: string
+    icon: string
+  }>
+  tags: string[]
+}
 
 interface PortfolioProps {
   selectedProject?: string | null
   setSelectedProject?: (projectId: string | null) => void
 }
-// TODO [Deep Links]
-// - Read project id from the URL (e.g., useParams) and setSelectedProject(id) on mount
-// - Also update filters from query params if desired (e.g., ?category=Financial%20Analytics)
+// NOTE: Future enhancement — support deep links by reading the project id (e.g., via useParams)
+//       and syncing filters from query params such as ?category=Financial%20Analytics.
 //
-// TODO [Project Cover Images]
-// - Add optional `coverUrl` field to each project (e.g., '/images/projects/slug.jpg')
-// - Put images under: public/images/projects/
-// - See the hero section below for where to render the <img> (behind overlays)
+// NOTE: Optional cover images can be added via project.coverUrl (e.g., '/images/projects/slug/hero.jpg')
+//       and rendered behind the hero gradient while keeping the gradient fallback in place.
 
+
+// Fallback projects (module-level constant for stable reference)
+const fallbackProjects: ProjectSummary[] = [
+  {
+    id: 'intelligent-financial-close',
+    title: 'Intelligent Financial Close System',
+    category: 'Financial Analytics',
+    type: 'interactive',
+    description: 'Enterprise ML-powered financial close automation achieving 73.7% automation rate, $285K annual savings, and 280% ROI through advanced anomaly detection and predictive analytics.',
+    tags: ['Python', 'Machine Learning', 'Financial Analytics', 'Process Automation', 'ML', 'Statistical Analysis'],
+    duration: '6 months',
+    client: 'Industry: Enterprise Finance',
+    hasInteractive: true,
+    featured: true,
+    order: 0
+  }
+]
 
 const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
-  const [activeFilter, setActiveFilter] = useState('All')
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const categoryParam = searchParams.get('category') || null
 
-  const filters = ['All', 'Financial Analytics', 'Business Intelligence', 'Investment Analysis', 'Process Automation']
+  const [activeFilter, setActiveFilter] = useState(categoryParam ?? 'All')
+  const [projects, setProjects] = useState<ProjectSummary[]>([])
+  const [categories, setCategories] = useState<string[]>(['All'])
+  const [loading, setLoading] = useState(true)
+  const [error] = useState<string | null>(null)
 
-  const projects = [
-    {
-      id: 1,
-      title: 'M&A Financial Valuation Model',
-      category: 'Financial Analytics',
-      description: 'Built comprehensive Excel-based valuation model for $2M industrial chemicals acquisition. Included DCF analysis, comparable company analysis, and sensitivity scenarios that supported successful deal completion.',
-      icon: Calculator,
-      link: '#',
-      tags: ['Excel', 'DCF', 'M&A', 'Valuation']
-    },
-    {
-      id: 2,
-      title: 'Executive KPI Dashboard',
-      category: 'Business Intelligence',
-      description: 'Power BI dashboard providing real-time insights into key performance metrics. Automated data refresh from multiple sources, resulting in 30% faster executive decision-making process.',
-      icon: BarChart,
-      link: '#',
-      tags: ['Power BI', 'KPIs', 'Real-time', 'Automation']
-    },
-    {
-      id: 3,
-      title: 'Real Estate Investment Calculator',
-      category: 'Investment Analysis',
-      description: 'Python-based ROI analysis tool for international real estate investments. Incorporates currency fluctuations, local market trends, and regulatory factors across Asia-Pacific markets.',
-      icon: TrendingUp,
-      link: '#',
-      tags: ['Python', 'ROI', 'Real Estate', 'APAC']
-    },
-    {
-      id: 4,
-      title: 'Automated Financial Reconciliation',
-      category: 'Process Automation',
-      description: 'VBA-powered automation system for monthly financial reconciliations. Reduced manual processing time by 80% and eliminated human errors, saving $20K+ annually in operational costs.',
-      icon: Settings,
-      link: '#',
-      tags: ['VBA', 'Automation', '$20K+ Savings', '80% Reduction']
-    },
-    {
-      id: 5,
-      title: 'Revenue Forecasting Model',
-      category: 'Financial Analytics',
-      description: 'Machine learning model using Python and historical data to predict quarterly revenue with 92% accuracy. Integrates market indicators and seasonal patterns for strategic planning.',
-      icon: Calculator,
-      link: '#',
-      tags: ['Python', 'ML', '92% Accuracy', 'Forecasting']
-    },
-    {
-      id: 6,
-      title: 'Cost Optimization Analysis',
-      category: 'Business Intelligence',
-      description: 'Comprehensive analysis using SQL and Tableau to identify cost reduction opportunities. Data-driven recommendations led to 15% reduction in operational expenses across multiple departments.',
-      icon: BarChart,
-      link: '#',
-      tags: ['SQL', 'Tableau', '15% Reduction', 'Cost Analysis']
+  // Load projects from data file
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const response = await fetch('/data/projects/index.json')
+        if (response.ok) {
+          const projectsIndex: ProjectsIndex = await response.json()
+          setProjects(projectsIndex.projects.sort((a, b) => a.order - b.order))
+
+          // Extract unique categories
+          const uniqueCategories = ['All', ...Array.from(new Set(projectsIndex.projects.map(p => p.category)))]
+          setCategories(uniqueCategories)
+        } else {
+          // Fallback to hardcoded projects if no data exists yet
+          setProjects(fallbackProjects)
+        }
+      } catch {
+        // Fallback to hardcoded projects
+        setProjects(fallbackProjects)
+      } finally {
+        setLoading(false)
+      }
     }
-  ]
+
+    loadProjects()
+  }, [])
+
+  // Sync active filter with URL query (category)
+  useEffect(() => {
+    if (loading) return
+
+    if (categoryParam && categories.includes(categoryParam)) {
+      setActiveFilter(categoryParam)
+      return
+    }
+
+    if (categoryParam && !categories.includes(categoryParam)) {
+      setActiveFilter('All')
+      const next = new URLSearchParams(searchParams)
+      next.delete('category')
+      setSearchParams(next, { replace: true })
+      return
+    }
+
+    if (!categoryParam) {
+      setActiveFilter('All')
+    }
+  }, [loading, categories, categoryParam, searchParams, setSearchParams])
+
+  const buildSearchString = (filter: string): string => {
+    if (filter === 'All') return ''
+    const params = new URLSearchParams()
+    params.set('category', filter)
+    return `?${params.toString()}`
+  }
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter)
+
+    const next = new URLSearchParams(searchParams)
+    if (filter === 'All') {
+      next.delete('category')
+    } else {
+      next.set('category', filter)
+    }
+    setSearchParams(next, { replace: true })
+  }
+
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <div className="text-center py-12">
+          <p className="body-normal">Loading projects...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-8">
+        <div className="text-center py-12">
+          <p className="text-red-400">Error loading projects: {error}</p>
+        </div>
+      </div>
+    )
+  }
 
   const filteredProjects = activeFilter === 'All'
     ? projects
     : projects.filter(project => project.category === activeFilter)
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'Financial Analytics': return 'text-blue-400 bg-blue-400/10'
-      case 'Business Intelligence': return 'text-green-400 bg-green-400/10'
-      case 'Investment Analysis': return 'text-red-400 bg-red-400/10'
-      case 'Process Automation': return 'text-purple-400 bg-purple-400/10'
-      default: return 'text-orange-yellow bg-orange-yellow/10'
-    }
-  }
-
-  const handleProjectClick = (projectId: number) => {
-    // Map project IDs to the detailed project IDs
-    const projectIdMap: { [key: number]: string } = {
-      4: 'financial-automation',
-      5: 'revenue-forecasting',
-      6: 'cost-optimization'
-    }
-
-    const detailedProjectId = projectIdMap[projectId]
-    if (detailedProjectId) {
-      // Navigate to project URL
-      navigate(`/project/${detailedProjectId}`)
-      // Also update local state for immediate UI update
-      if (setSelectedProject) {
-        setSelectedProject(detailedProjectId)
-      }
+  const handleProjectClick = (projectId: string) => {
+    const searchSuffix = buildSearchString(activeFilter)
+    navigate(`/project/${projectId}${searchSuffix}`)
+    if (setSelectedProject) {
+      setSelectedProject(projectId)
     }
   }
 
   const handleBackToPortfolio = () => {
-    // Navigate back to portfolio
-    navigate('/portfolio')
-    // Also update local state for immediate UI update
+    const searchSuffix = buildSearchString(activeFilter)
+    navigate(searchSuffix ? `/portfolio${searchSuffix}` : '/portfolio')
     if (setSelectedProject) {
       setSelectedProject(null)
     }
@@ -130,15 +186,15 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="portfolio-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl lg:text-4xl font-bold text-white-1 text-left">Portfolio</h2>
-        
+        <h2 id="portfolio-title" className="page-title text-left">Portfolio</h2>
+
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
       </motion.div>
 
@@ -147,13 +203,16 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
+        role="group"
+        aria-label="Project categories"
         className="flex flex-wrap gap-2"
       >
-        {filters.map((filter) => (
+        {categories.map((filter) => (
           <button
             key={filter}
-            onClick={() => setActiveFilter(filter)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+            onClick={() => handleFilterChange(filter)}
+            aria-pressed={activeFilter === filter}
+            className={`nav-text px-4 py-2 rounded-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 ${
               activeFilter === filter
                 ? 'bg-orange-yellow text-smoky-black'
                 : 'bg-gradient-jet text-light-gray hover:text-orange-yellow border border-jet'
@@ -173,9 +232,9 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
             category={project.category}
             description={project.description}
             tags={project.tags}
-            icon={project.icon}
+            image={project.hero_image}
             index={index}
-            getCategoryColor={getCategoryColor}
+            getCategoryColor={getPortfolioCategoryStyles}
             onCardClick={() => handleProjectClick(project.id)}
           />
         ))}
@@ -189,10 +248,10 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
           transition={{ duration: 0.5 }}
           className="text-center py-12"
         >
-          <p className="text-light-gray">No projects found for the selected category.</p>
+          <p className="body-normal">No projects found for the selected category.</p>
         </motion.div>
       )}
-    </div>
+    </section>
   )
 }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useLocation, useParams } from 'react-router-dom'
 import Navigation from './Navigation'
 import About from './sections/About'
@@ -20,9 +20,24 @@ const MainContent = () => {
   const location = useLocation()
   const params = useParams()
 
-  // Sync activeTab with URL pathname
+  const prefersReducedMotion = useReducedMotion()
+
+  // Sync activeTab and selectedProject with URL pathname
   useEffect(() => {
     const pathname = location.pathname
+
+    // Project detail route takes precedence
+    if (pathname.startsWith('/project/')) {
+      setActiveTab('portfolio')
+      setSelectedProject(params.id ?? null)
+      return
+    }
+
+    // For any non-project route, ensure no project is selected
+    if (selectedProject !== null) {
+      setSelectedProject(null)
+    }
+
     if (pathname === '/' || pathname === '/about') {
       setActiveTab('about')
     } else if (pathname === '/portfolio') {
@@ -31,14 +46,10 @@ const MainContent = () => {
       setActiveTab('blog')
     } else if (pathname === '/contact') {
       setActiveTab('contact')
-    } else if (pathname.startsWith('/project/')) {
-      setActiveTab('portfolio')
-      // Set selected project from URL parameter
-      if (params.id) {
-        setSelectedProject(params.id)
-      }
+    } else {
+      setActiveTab('about')
     }
-  }, [location.pathname, params.id])
+  }, [location.pathname, params.id, selectedProject])
 
   const renderContent = () => {
     switch (activeTab) {
@@ -57,21 +68,21 @@ const MainContent = () => {
 
   return (
     <motion.div
-      initial={{ x: 100, opacity: 0 }}
+      initial={prefersReducedMotion ? undefined : { x: 100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: prefersReducedMotion ? 0 : 0.2 }}
       className="flex-1 max-w-4xl w-full"
     >
-      <div className="relative rounded-2xl border border-white/5 bg-eerie-black-1 backdrop-blur-sm shadow-2xl shadow-black/50 ring-1 ring-white/10">
+      <div className="relative rounded-2xl overflow-hidden border border-white/5 bg-eerie-black-1 backdrop-blur-sm shadow-2xl shadow-black/50 ring-1 ring-white/10">
         {/* Navigation */}
-        <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Navigation />
 
         {/* Content */}
         <motion.div
           key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
           className="p-6 lg:p-8"
         >
           {renderContent()}

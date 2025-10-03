@@ -12,8 +12,8 @@ export default function InfoBlocks({ items }: { items: InfoItem[] }) {
           key={it.label}
           className="rounded-xl border border-white/5 bg-gradient-jet p-4 sm:p-5 transition-all duration-200 hover:border-orange-yellow/30 hover:-translate-y-0.5"
         >
-          <h3 className="text-white-1 text-vcard-5 font-semibold tracking-wide mb-2">{it.label}</h3>
-          <p className="text-white-1/90 text-vcard-6 leading-relaxed break-words hyphens-auto">
+          <h3 className="card-title">{it.label}</h3>
+          <p className="body-small text-white-1/90 break-words hyphens-auto">
             {it.value}
           </p>
         </article>

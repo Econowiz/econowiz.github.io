@@ -150,7 +150,7 @@ export default function HorizontalCarousel({ children, className }: HorizontalCa
             aria-label="Previous"
             onClick={() => scrollByItem(-1)}
             disabled={current === 0}
-            className="flex items-center justify-center w-8 h-8 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 text-white/80 hover:text-white transition-all duration-200 hover:border-orange-yellow/50"
+            className="flex items-center justify-center w-8 h-8 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 text-white/80 hover:text-white transition-all duration-200 hover:border-orange-yellow/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70"
           >
             <ChevronLeft size={16} />
           </button>
@@ -159,7 +159,7 @@ export default function HorizontalCarousel({ children, className }: HorizontalCa
             aria-label="Next"
             onClick={() => scrollByItem(1)}
             disabled={current === itemsArray.length - 1}
-            className="flex items-center justify-center w-8 h-8 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 text-white/80 hover:text-white transition-all duration-200 hover:border-orange-yellow/50"
+            className="flex items-center justify-center w-8 h-8 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 text-white/80 hover:text-white transition-all duration-200 hover:border-orange-yellow/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70"
           >
             <ChevronRight size={16} />
           </button>
@@ -171,9 +171,10 @@ export default function HorizontalCarousel({ children, className }: HorizontalCa
             <button
               key={i}
               aria-label={`Go to slide ${i + 1}`}
+              aria-current={i === current}
               onClick={() => snapTo(i)}
               className={cn(
-                'h-2 w-2 rounded-full transition-colors',
+                'h-2 w-2 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70',
                 i === current ? 'bg-orange-yellow' : 'bg-white/25 hover:bg-white/50'
               )}
             />

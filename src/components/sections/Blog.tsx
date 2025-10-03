@@ -1,86 +1,141 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import { UnifiedCard, UnifiedGrid } from '../shared'
+import { getBlogCategoryStyles } from '../shared/categoryStyles'
+
+interface BlogPost {
+  id: string
+  title: string
+  category: string
+  date: string
+  excerpt: string
+  tags: string[]
+  author: string
+  readTime: string
+  featured: boolean
+  image?: string
+}
+
+interface BlogIndex {
+  posts: BlogPost[]
+  categories: Array<{
+    id: string
+    name: string
+    description: string
+    color: string
+  }>
+  tags: string[]
+}
+
+// Fallback blog posts (module-level constant for stable reference)
+const fallbackBlogPosts: BlogPost[] = [
+  {
+    id: 'from-excel-to-cloud-the-modern-finance-stack-revolution',
+    title: 'From Excel to Cloud: The Modern Finance Stack Revolution',
+    category: 'Finance',
+    date: '2025-03-22',
+    excerpt: 'How finance teams graduate from spreadsheet sprawl to a modern cloud-first stack without losing Excel.',
+    tags: ['python', 'cloud', 'automation'],
+    author: 'Franck Rafiou',
+    readTime: '8 min read',
+    featured: false,
+    image: '/images/blog/from-excel-to-cloud-the-modern-finance-stack-revolution/hero.webp'
+  },
+  {
+    id: 'the-rise-of-real-time-financial-intelligence',
+    title: 'The Rise of Real-Time Financial Intelligence',
+    category: 'Analytics',
+    date: '2025-03-15',
+    excerpt: 'Discover how real-time data streams and AI-powered analytics are transforming finance from periodic reporting to continuous intelligence.',
+    tags: ['AI', 'real-time', 'dashboards'],
+    author: 'Franck Rafiou',
+    readTime: '7 min read',
+    featured: false
+  }
+]
 
 const Blog = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'The Future of Financial Analytics in 2025',
-      category: 'Finance',
-      date: 'Dec 15, 2024',
-      excerpt: 'How AI and machine learning are transforming traditional financial analysis and what professionals need to know.',
-      image: '/api/placeholder/300/200',
-      link: '#'
-    },
-    {
-      id: 2,
-      title: 'Building Effective Financial Dashboards with Power BI',
-      category: 'Analytics',
-      date: 'Nov 28, 2024',
-      excerpt: 'Best practices for creating executive-level financial dashboards that drive decision-making.',
-      image: '/api/placeholder/300/200',
-      link: '#'
-    },
-    {
-      id: 3,
-      title: 'Python for Real Estate Investment Analysis',
-      category: 'Investment',
-      date: 'Oct 12, 2024',
-      excerpt: 'Leveraging Python libraries for comprehensive real estate market analysis and ROI calculations.',
-      image: '/api/placeholder/300/200',
-      link: '#'
-    },
-    {
-      id: 4,
-      title: 'Advanced Excel VBA for Financial Process Automation',
-      category: 'Automation',
-      date: 'Sep 25, 2024',
-      excerpt: 'How to automate complex financial processes and save thousands in operational costs.',
-      image: '/api/placeholder/300/200',
-      link: '#'
-    },
-    {
-      id: 5,
-      title: 'Navigating Cross-Border Financial Operations in Southeast Asia',
-      category: 'International',
-      date: 'Aug 18, 2024',
-      excerpt: 'Insights from managing international financial operations and regulatory compliance across cultures.',
-      image: '/api/placeholder/300/200',
-      link: '#'
-    },
-    {
-      id: 6,
-      title: 'Data-Driven M&A: Analytics for Better Deal Outcomes',
-      category: 'M&A',
-      date: 'Jul 30, 2024',
-      excerpt: 'Using advanced analytics and modeling to improve merger and acquisition decision-making processes.',
-      image: '/api/placeholder/300/200',
-      link: '#'
-    }
-  ]
+  const navigate = useNavigate()
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error] = useState<string | null>(null)
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'Finance': return 'text-blue-400 bg-blue-400/10'
-      case 'Analytics': return 'text-green-400 bg-green-400/10'
-      case 'Investment': return 'text-red-400 bg-red-400/10'
-      case 'Automation': return 'text-purple-400 bg-purple-400/10'
-      case 'International': return 'text-cyan-400 bg-cyan-400/10'
-      case 'M&A': return 'text-yellow-400 bg-yellow-400/10'
-      default: return 'text-orange-yellow bg-orange-yellow/10'
+  // Load blog posts from data file
+  useEffect(() => {
+    const loadBlogPosts = async () => {
+      try {
+        const response = await fetch('/data/blog/index.json')
+        if (response.ok) {
+          const blogIndex: BlogIndex = await response.json()
+          setBlogPosts(blogIndex.posts)
+        } else {
+          // Fallback to hardcoded posts if no blog data exists yet
+          setBlogPosts(fallbackBlogPosts)
+        }
+      } catch {
+        // Fallback to hardcoded posts
+        setBlogPosts(fallbackBlogPosts)
+      } finally {
+        setLoading(false)
+      }
     }
+
+    loadBlogPosts()
+  }, [])
+
+
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <div className="text-center py-12">
+          <p className="body-normal">Loading blog posts...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-8">
+        <div className="text-center py-12">
+          <p className="body-normal text-red-400">Error loading blog posts: {error}</p>
+        </div>
+      </div>
+    )
+  }
+
+  const formatDate = (value: string) => {
+    const parsed = new Date(value)
+    if (Number.isNaN(parsed.getTime())) {
+      return value
+    }
+
+    return parsed.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  }
+
+  const handleBlogClick = (postId: string) => {
+    const post = blogPosts.find((p) => p.id === postId)
+    if (!post) return
+
+    const markdownPath = `/data/blog/${post.id}/content.md`
+    navigate(`/view?path=${encodeURIComponent(markdownPath)}`)
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="blog-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl lg:text-4xl font-bold text-white-1 text-left">Blog</h2>
-        
+        <h2 id="blog-title" className="page-title text-left">Blog</h2>
+
         <div className="h-0.5 w-12 bg-orange-yellow mb-6"></div>
       </motion.div>
 
@@ -93,26 +148,15 @@ const Blog = () => {
             category={post.category}
             description={post.excerpt}
             image={post.image}
-            date={post.date}
+            date={formatDate(post.date)}
+            tags={post.tags}
             index={index}
-            getCategoryColor={getCategoryColor}
-            onCardClick={() => alert(`"${post.title}" article coming soon!`)}
+            getCategoryColor={getBlogCategoryStyles}
+            onCardClick={() => handleBlogClick(post.id)}
           />
         ))}
       </UnifiedGrid>
-
-      {/* Coming Soon Note */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
-        className="text-center py-8"
-      >
-        <p className="text-light-gray text-sm">
-          More articles on financial analytics, investment strategy, and business intelligence coming soon!
-        </p>
-      </motion.div>
-    </div>
+    </section>
   )
 }
 

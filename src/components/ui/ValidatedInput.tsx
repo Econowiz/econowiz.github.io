@@ -92,7 +92,7 @@ export const ValidatedInput = ({
   return (
     <div className="space-y-2">
       {label && (
-        <label htmlFor={register.name} className="block text-sm font-medium text-white-1">
+        <label htmlFor={register.name} className="body-small block text-white-1">
           {label}
         </label>
       )}

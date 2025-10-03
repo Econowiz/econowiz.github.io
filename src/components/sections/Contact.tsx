@@ -139,14 +139,14 @@ const Contact = () => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="contact-title">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl lg:text-4xl font-bold text-white-1 text-left">Contact</h2>
+        <h2 id="contact-title" className="page-title text-left">Contact</h2>
         
         <div className="h-0.5 w-16 bg-orange-yellow mb-6"></div>
       </motion.div>
@@ -161,8 +161,8 @@ const Contact = () => {
           {/* Left side - Content */}
           <div className="flex-1">
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-white-1 mb-3">Let's Connect</h3>
-              <p className="text-light-gray leading-relaxed">
+              <h3 className="subsection-heading mb-3">Let's Connect</h3>
+              <p className="body-normal">
                 Interested in working together? I'd love to discuss how I can help drive results for your organization.
               </p>
             </div>
@@ -172,12 +172,12 @@ const Contact = () => {
               {/* Info cards side by side */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="text-center p-4 bg-eerie-black-2/90 rounded-lg border border-white/10 shadow-sm">
-                  <h4 className="text-orange-yellow font-medium mb-1">Languages</h4>
-                  <p className="text-sm text-white-1 font-medium">English, German, French</p>
+                  <h4 className="small-heading text-orange-yellow mb-1">Languages</h4>
+                  <p className="body-small text-white-1">English, German, French</p>
                 </div>
                 <div className="text-center p-4 bg-eerie-black-2/90 rounded-lg border border-white/10 shadow-sm">
-                  <h4 className="text-orange-yellow font-medium mb-1">Curriculum Vitae</h4>
-                  <p className="text-sm text-white-1 font-medium">Upon Request</p>
+                  <h4 className="small-heading text-orange-yellow mb-1">Curriculum Vitae</h4>
+                  <p className="body-small text-white-1">Upon Request</p>
                 </div>
               </div>
             </div>
@@ -206,7 +206,7 @@ const Contact = () => {
             register={register('fullName', contactFormValidation.fullName)}
             error={errors.fullName}
             maxLength={100}
-            showCharacterCount={true}
+            showCharacterCount={false}
             realTimeValidation={realTimeValidators.validateNameRealTime}
           />
 
@@ -217,7 +217,7 @@ const Contact = () => {
             register={register('email', contactFormValidation.email)}
             error={errors.email}
             maxLength={254}
-            showCharacterCount={true}
+            showCharacterCount={false}
             realTimeValidation={realTimeValidators.validateEmailRealTime}
           />
 
@@ -228,7 +228,7 @@ const Contact = () => {
             register={register('company', contactFormValidation.company)}
             error={errors.company}
             maxLength={200}
-            showCharacterCount={true}
+            showCharacterCount={false}
             realTimeValidation={realTimeValidators.validateCompanyRealTime}
           />
 
@@ -250,7 +250,7 @@ const Contact = () => {
               disabled={isSubmitting}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-orange-yellow text-eerie-black-1 font-medium py-3 px-6 rounded-lg hover:bg-vegas-gold transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-orange-yellow focus:ring-offset-2 focus:ring-offset-eerie-black-1"
+              className="nav-text w-full bg-orange-yellow text-eerie-black-1 py-3 px-6 rounded-lg hover:bg-vegas-gold transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-orange-yellow focus:ring-offset-2 focus:ring-offset-eerie-black-1"
               aria-describedby={submitStatus !== 'idle' ? 'form-status' : undefined}
             >
               {isSubmitting ? (
@@ -274,7 +274,7 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-green-500/20 border border-green-500/30 text-green-400 p-3 rounded-lg text-sm"
+                className="body-small bg-green-500/20 border border-green-500/30 text-green-400 p-3 rounded-lg"
                 role="status"
               >
                 Thank you for your message! It has been sent successfully. I'll get back to you soon.
@@ -285,10 +285,10 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-red-500/20 border border-red-500/30 text-red-400 p-3 rounded-lg text-sm"
+                className="body-small bg-red-500/20 border border-red-500/30 text-red-400 p-3 rounded-lg"
                 role="alert"
               >
-                {errorMessage || 'Failed to send message. Please try again or contact me directly at franck@gmail.com.'}
+                {errorMessage || 'Failed to send message. Please try again or contact me directly at franck@aethelstone.com.'}
               </motion.div>
             )}
 
@@ -296,7 +296,7 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 p-3 rounded-lg text-sm"
+                className="body-small bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 p-3 rounded-lg"
                 role="alert"
               >
                 {errorMessage}
@@ -307,7 +307,7 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-orange-500/20 border border-orange-500/30 text-orange-400 p-3 rounded-lg text-sm"
+                className="body-small bg-orange-500/20 border border-orange-500/30 text-orange-400 p-3 rounded-lg"
                 role="alert"
               >
                 Your message couldn't be sent. Please ensure your message is appropriate and try again.
@@ -316,7 +316,7 @@ const Contact = () => {
           </div>
         </form>
       </motion.div>
-    </div>
+    </section>
   )
 }
 

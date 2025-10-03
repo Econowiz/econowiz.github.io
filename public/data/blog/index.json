@@ -1,0 +1,65 @@
+{
+  "posts": [
+    {
+      "id": "from-excel-to-cloud-the-modern-finance-stack-revolution",
+      "title": "From Excel to Cloud: The Modern Finance Stack Revolution",
+      "category": "Finance",
+      "date": "2025-03-22",
+      "excerpt": "How finance teams graduate from spreadsheet sprawl to a modern cloud-first stack without losing Excel.",
+      "tags": [
+        "python",
+        "cloud",
+        "automation",
+        "digital-transformation",
+        "finance-tech"
+      ],
+      "author": "Franck Rafiou",
+      "readTime": "8 min read",
+      "featured": false,
+      "image": "/images/blog/from-excel-to-cloud-the-modern-finance-stack-revolution/hero.webp"
+    },
+    {
+      "id": "the-rise-of-real-time-financial-intelligence",
+      "title": "The Rise of Real-Time Financial Intelligence",
+      "category": "Analytics",
+      "date": "2025-06-15",
+      "excerpt": "Discover how real-time data streams and AI-powered analytics are transforming finance from periodic reporting to continuous intelligence.",
+      "tags": [
+        "AI",
+        "real-time",
+        "dashboards",
+        "automation",
+        "finance"
+      ],
+      "author": "Franck Rafiou",
+      "readTime": "7 min read",
+      "featured": false,
+      "image": "/images/blog/the-rise-of-real-time-financial-intelligence/hero.webp"
+    }
+  ],
+  "categories": [
+    {
+      "id": "finance",
+      "name": "Finance",
+      "description": "Financial analysis, trends, and insights",
+      "color": "blue"
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "description": "Data analysis, visualization, and business intelligence",
+      "color": "green"
+    }
+  ],
+  "tags": [
+    "python",
+    "cloud",
+    "automation",
+    "digital-transformation",
+    "finance-tech",
+    "AI",
+    "real-time",
+    "dashboards",
+    "finance"
+  ]
+}

@@ -1,13 +1,19 @@
 import { motion } from 'framer-motion'
-import { ArrowLeft, Calendar, Tag, Target, Lightbulb, TrendingUp, CheckCircle } from 'lucide-react'
-// TODO [Deep Links]
-// - When routes are added (e.g., /project/:id), you can read the id via useParams here
-//   OR keep using props and pass the id from MainContent/Portfolio
-//
-// TODO [Hero Cover Image]
-// - Support an optional project cover at the top banner, using public/images/projects/<id>.jpg
-// - Consider adding a sticky in-page TOC for sections (Challenge, Solution, Results, Lessons)
+import { ArrowLeft, Calendar, Tag, Target, Lightbulb, TrendingUp, CheckCircle, Download, ExternalLink } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import type { ProjectContent, ProjectType } from '../../types'
+import { ComponentRenderer } from '../interactive'
+import { MarkdownRenderer } from '../common'
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null
+
+const extractLegacyMarkdown = (section: unknown): string | null => {
+  if (!isRecord(section)) return null
+  const content = section['content']
+  return typeof content === 'string' ? content : null
+}
 
 interface ProjectDetailProps {
   projectId: string
@@ -15,15 +21,171 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
-  const getProjectData = (id: string) => {
+  const [projectData, setProjectData] = useState<ProjectContent | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  // Ensure the browser doesn't fight our manual restore on back/forward
+  useEffect(() => {
+    const history = window.history
+    const previous = history.scrollRestoration
+
+    if (!previous) {
+      return undefined
+    }
+
+    history.scrollRestoration = 'manual'
+
+    return () => {
+      history.scrollRestoration = previous
+    }
+  }, [])
+
+  // Handle BFCache restores (Brave/Safari/etc.)
+  useEffect(() => {
+    const isPageTransitionEvent = (event: Event): event is PageTransitionEvent =>
+      'persisted' in event
+
+    const handler = (event: Event) => {
+      if (!isPageTransitionEvent(event) || !event.persisted) {
+        return
+      }
+      // Try to restore from saved anchor/Y when page is restored from bfcache
+      const yKey = `scroll:project:${projectId}`
+      const savedY = sessionStorage.getItem(yKey)
+      const savedAnchor = sessionStorage.getItem(`${yKey}:anchor`)
+      if (!savedY && !savedAnchor) return
+      const tryRestore = () => {
+        if (savedAnchor) {
+          const el = document.getElementById(savedAnchor)
+          if (el) { el.scrollIntoView({ block: 'start', behavior: 'auto' }); return true }
+        }
+        if (savedY) {
+          const y = parseInt(savedY, 10)
+          if (!Number.isNaN(y)) { window.scrollTo({ top: y, left: 0, behavior: 'auto' }); return true }
+        }
+        return false
+      }
+      ;[0, 100, 300].forEach((delay) => {
+        setTimeout(() => {
+          tryRestore()
+        }, delay)
+      })
+    }
+    window.addEventListener('pageshow', handler)
+    return () => window.removeEventListener('pageshow', handler)
+  }, [projectId])
+
+  // Load enhanced project data
+  useEffect(() => {
+    const loadProjectData = async () => {
+      setLoading(true)
+      setError(null)
+
+      try {
+        // Try to load enhanced project data first
+        const response = await fetch(`/data/projects/${projectId}/metadata.json`)
+        if (response.ok) {
+          const data = await response.json()
+          setProjectData(data)
+        } else {
+          // Fallback to legacy project data
+          const legacyData = getLegacyProjectData(projectId)
+          if (legacyData) {
+            setProjectData(legacyData)
+          } else {
+            setError('Project not found')
+          }
+        }
+      } catch {
+        // Fallback to legacy project data
+        const legacyData = getLegacyProjectData(projectId)
+        if (legacyData) {
+          setProjectData(legacyData)
+        } else {
+          setError('Failed to load project data')
+        }
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadProjectData()
+  }, [projectId])
+
+  // Simple SEO: Update document title when project loads
+  useEffect(() => {
+    if (projectData) {
+      document.title = `${projectData.title} - Franck Rafiou Portfolio`
+    }
+    return () => {
+      document.title = 'Franck Rafiou - Portfolio'
+    }
+  }, [projectData])
+
+  // Restore scroll position when returning from viewer (robust against layout shifts)
+  useEffect(() => {
+    if (loading) return
+
+    const yKey = `scroll:project:${projectId}`
+    const anchorKey = `${yKey}:anchor`
+    const savedY = sessionStorage.getItem(yKey)
+    const savedAnchor = sessionStorage.getItem(anchorKey)
+
+    if (!savedY && !savedAnchor) return
+
+    const tryRestore = () => {
+      // Prefer anchor when available (e.g., downloads-section)
+      if (savedAnchor) {
+        const el = document.getElementById(savedAnchor)
+        if (el) {
+          el.scrollIntoView({ block: 'start', behavior: 'auto' })
+          return true
+        }
+      }
+      // Fallback to stored Y
+      if (savedY) {
+        const y = parseInt(savedY, 10)
+        if (!Number.isNaN(y)) {
+          window.scrollTo({ top: y, left: 0, behavior: 'auto' })
+          return true
+        }
+      }
+      return false
+    }
+
+    // Attempt multiple times to accommodate images/charts loading
+    const delays = [0, 100, 300, 600]
+    let restored = false
+    delays.forEach((d) => {
+      setTimeout(() => {
+        if (!restored) restored = tryRestore()
+      }, d)
+    })
+
+    // Cleanup and clear stored keys after a second
+    const clear = setTimeout(() => {
+      sessionStorage.removeItem(yKey)
+      sessionStorage.removeItem(anchorKey)
+    }, 1200)
+
+    return () => clearTimeout(clear)
+  }, [loading, projectId])
+
+  const getLegacyProjectData = (id: string): ProjectContent | null => {
     switch (id) {
       case 'financial-automation':
         return {
+          id: 'financial-automation',
           title: 'Financial Process Automation',
           category: 'Process Automation',
+          type: 'standard',
+          description: 'Transformed manual financial reconciliation processes through intelligent automation, eliminating errors and reducing processing time by 85%.',
+          tags: ['Python', 'Automation', 'VBA', 'Process Improvement'],
           duration: '3 months',
           client: 'Manufacturing Company',
           overview: 'Transformed manual financial reconciliation processes through intelligent automation, eliminating errors and reducing processing time by 85%.',
+          sections: [],
           challenge: {
             title: 'The Challenge',
             description: 'The finance team was spending 40+ hours monthly on manual reconciliation processes, leading to frequent errors, delayed reporting, and team burnout. The manual process involved cross-referencing multiple data sources, identifying discrepancies, and creating adjustment entries.',
@@ -75,10 +237,15 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
 
       case 'revenue-forecasting':
         return {
+          id: 'revenue-forecasting',
           title: 'Revenue Forecasting Model',
           category: 'Financial Analytics',
+          type: 'standard' as ProjectType,
+          description: 'Built a machine learning-powered revenue forecasting model achieving 92% accuracy, enabling data-driven strategic planning and resource allocation.',
+          tags: ['Python', 'Machine Learning', 'Forecasting', 'Analytics'],
           duration: '4 months',
           client: 'Technology Services Company',
+          sections: [],
           overview: 'Built a machine learning-powered revenue forecasting model achieving 92% accuracy, enabling data-driven strategic planning and resource allocation.',
           challenge: {
             title: 'The Challenge',
@@ -131,10 +298,15 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
 
       case 'cost-optimization':
         return {
+          id: 'cost-optimization',
           title: 'Cost Optimization Analysis',
           category: 'Business Intelligence',
+          type: 'standard' as ProjectType,
+          description: 'Conducted comprehensive cost analysis using advanced analytics, identifying and implementing a 15% cost reduction across multiple departments.',
+          tags: ['SQL', 'Tableau', 'Cost Analysis', 'Data Visualization'],
           duration: '2 months',
           client: 'Multi-department Organization',
+          sections: [],
           overview: 'Conducted comprehensive cost analysis using advanced analytics, identifying and implementing a 15% cost reduction across multiple departments.',
           challenge: {
             title: 'The Challenge',
@@ -190,15 +362,32 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
     }
   }
 
-  const project = getProjectData(projectId)
+  // Loading state
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <div className="animate-pulse">
+          <div className="h-8 bg-jet rounded w-1/3 mb-4"></div>
+          <div className="h-4 bg-jet rounded w-2/3 mb-6"></div>
+          <div className="space-y-4">
+            <div className="h-32 bg-jet rounded"></div>
+            <div className="h-32 bg-jet rounded"></div>
+            <div className="h-32 bg-jet rounded"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
-  if (!project) {
+  // Error state
+  if (error || !projectData) {
     return (
       <div className="text-center py-12">
-        <p className="text-light-gray">Project not found.</p>
+        <p className="body-normal">{error || 'Project not found.'}</p>
         <button
           onClick={onBack}
-          className="mt-4 text-orange-yellow hover:text-white-1 transition-colors"
+          aria-label="Back to portfolio"
+          className="mt-4 text-orange-yellow hover:text-white-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
         >
           ← Back to Portfolio
         </button>
@@ -207,7 +396,8 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
   }
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8" aria-labelledby="project-title">
+
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -216,29 +406,100 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
       >
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors mb-6"
+          aria-label="Back to portfolio"
+          className="flex items-center gap-2 text-orange-yellow hover:text-white-1 transition-colors mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70 rounded"
         >
           <ArrowLeft size={20} />
           Back to Portfolio
         </button>
 
-        <h1 className="text-3xl font-bold text-white-1 mb-4">{project.title}</h1>
+        <h1 id="project-title" className="project-title">{projectData.title}</h1>
 
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex items-center gap-2 text-light-gray">
             <Tag size={16} />
-            <span>{project.category}</span>
+            <span>{projectData.category}</span>
           </div>
           <div className="flex items-center gap-2 text-light-gray">
             <Calendar size={16} />
-            <span>{project.duration}</span>
+            <span>{projectData.duration}</span>
           </div>
+          {projectData.client && (
+            <div className="flex items-center gap-2 text-light-gray">
+              <ExternalLink size={16} />
+              <span>{projectData.client}</span>
+            </div>
+          )}
         </div>
 
-        <p className="text-light-gray text-lg leading-relaxed">{project.overview}</p>
+        {/* Tags */}
+        {projectData.tags && projectData.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {projectData.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="body-small px-3 py-1 bg-eerie-black-2 rounded border border-jet"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <p className="body-normal">
+          {projectData.description || projectData.overview}
+        </p>
       </motion.div>
 
-      {/* Challenge Section */}
+      {/* Enhanced Sections or Legacy Content */}
+      {projectData.sections && projectData.sections.length > 0 ? (
+        // Render enhanced sections
+        projectData.sections
+          .sort((a, b) => a.order - b.order)
+          .map((section, index) => {
+            const legacyMarkdown = extractLegacyMarkdown(section)
+
+            return (
+              <motion.div
+                key={section.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                className="space-y-6"
+              >
+                {/* Section Header */}
+                <div className="border-l-4 border-orange-yellow pl-4">
+                  <h2 className="project-section">{section.title}</h2>
+                </div>
+
+                {/* Section Content */}
+                {section.type === 'content' && (
+                  <MarkdownRenderer content={section.content.markdown} />
+                )}
+                {/* Back-compat: support legacy sections with type: "text" and raw markdown string */}
+                {legacyMarkdown && (
+                  <MarkdownRenderer content={legacyMarkdown} />
+                )}
+
+                {/* Interactive Components */}
+                {section.type === 'interactive' && section.components && section.components.length > 0 && (
+                  <div className="space-y-6">
+                    {section.components.map((component) => (
+                      <ComponentRenderer
+                        key={component.id}
+                        component={component}
+                        className="w-full"
+                      />
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            )
+          })
+      ) : (
+        // Render legacy content
+        <>
+          {/* Challenge Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -247,22 +508,24 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
       >
         <div className="flex items-center gap-3 mb-4">
           <Target className="text-red-400" size={24} />
-          <h2 className="text-xl font-semibold text-white-1">{project.challenge.title}</h2>
+          <h2 className="project-section">{projectData.challenge?.title || 'Challenge'}</h2>
         </div>
 
-        <p className="text-light-gray mb-4">{project.challenge.description}</p>
+        <p className="body-normal mb-4">{projectData.challenge?.description}</p>
 
-        <div className="space-y-2">
-          <h3 className="text-white-1 font-medium">Key Pain Points:</h3>
-          <ul className="space-y-2">
-            {project.challenge.painPoints.map((point, index) => (
-              <li key={index} className="flex items-start gap-2 text-light-gray text-sm">
-                <span className="text-red-400 mt-1">•</span>
-                {point}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {projectData.challenge?.painPoints && (
+          <div className="space-y-2">
+            <h3 className="project-subsection">Key Pain Points:</h3>
+            <ul className="space-y-2">
+              {projectData.challenge.painPoints.map((point, index) => (
+                <li key={index} className="body-small flex items-start gap-2">
+                  <span className="text-red-400 mt-1">•</span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </motion.div>
 
       {/* Solution Section */}
@@ -274,37 +537,41 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
       >
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb className="text-blue-400" size={24} />
-          <h2 className="text-xl font-semibold text-white-1">{project.solution.title}</h2>
+          <h2 className="project-section">{projectData.solution?.title || 'Solution'}</h2>
         </div>
 
-        <p className="text-light-gray mb-4">{project.solution.description}</p>
+        <p className="body-normal mb-4">{projectData.solution?.description}</p>
 
         <div className="space-y-4">
-          <div>
-            <h3 className="text-white-1 font-medium mb-2">Approach:</h3>
-            <ul className="space-y-2">
-              {project.solution.approach.map((step, index) => (
-                <li key={index} className="flex items-start gap-2 text-light-gray text-sm">
-                  <span className="text-blue-400 mt-1">{index + 1}.</span>
-                  {step}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-white-1 font-medium mb-2">Technologies Used:</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.solution.technologies.map((tech, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-eerie-black-2 text-light-gray text-sm rounded border border-jet"
-                >
-                  {tech}
-                </span>
-              ))}
+          {projectData.solution?.approach && (
+            <div>
+              <h3 className="project-subsection mb-2">Approach:</h3>
+              <ul className="space-y-2">
+                {projectData.solution.approach.map((step, index) => (
+                  <li key={index} className="body-small flex items-start gap-2">
+                    <span className="text-blue-400 mt-1">{index + 1}.</span>
+                    {step}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          )}
+
+          {projectData.solution?.technologies && (
+            <div>
+              <h3 className="project-subsection mb-2">Technologies Used:</h3>
+              <div className="flex flex-wrap gap-2">
+                {projectData.solution.technologies.map((tech, index) => (
+                  <span
+                    key={index}
+                    className="body-small px-3 py-1 bg-eerie-black-2 rounded border border-jet"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </motion.div>
 
@@ -317,52 +584,140 @@ const ProjectDetail = ({ projectId, onBack }: ProjectDetailProps) => {
       >
         <div className="flex items-center gap-3 mb-4">
           <TrendingUp className="text-green-400" size={24} />
-          <h2 className="text-xl font-semibold text-white-1">{project.results.title}</h2>
+          <h2 className="project-section">{projectData.results?.title || 'Results & Impact'}</h2>
         </div>
 
-        <p className="text-light-gray mb-6">{project.results.description}</p>
+        <p className="body-normal mb-6">{projectData.results?.description}</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          {project.results.metrics.map((metric, index) => (
-            <div key={index} className="bg-eerie-black-2 p-4 rounded-lg border border-jet">
-              <div className="text-orange-yellow text-2xl font-bold mb-1">{metric.value}</div>
-              <div className="text-white-1 font-medium text-sm mb-1">{metric.label}</div>
-              <div className="text-light-gray text-xs">{metric.description}</div>
-            </div>
-          ))}
-        </div>
-
-        <div>
-          <h3 className="text-white-1 font-medium mb-2">Business Impact:</h3>
-          <ul className="space-y-2">
-            {project.results.businessImpact.map((impact, index) => (
-              <li key={index} className="flex items-start gap-2 text-light-gray text-sm">
-                <CheckCircle className="text-green-400 mt-0.5 flex-shrink-0" size={16} />
-                {impact}
-              </li>
+        {projectData.results?.metrics && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            {projectData.results.metrics.map((metric, index) => (
+              <div key={index} className="bg-eerie-black-2 p-4 rounded-lg border border-jet">
+                <div className="display-number text-orange-yellow">{metric.value}</div>
+                <div className="body-normal text-white-1 mb-1">{metric.label}</div>
+                <div className="body-small text-light-gray">{metric.description}</div>
+              </div>
             ))}
-          </ul>
-        </div>
+          </div>
+        )}
+
+        {projectData.results?.businessImpact && (
+          <div>
+            <h3 className="project-subsection mb-2">Business Impact:</h3>
+            <ul className="space-y-2">
+              {projectData.results.businessImpact.map((impact, index) => (
+                <li key={index} className="body-small flex items-start gap-2">
+                  <CheckCircle className="text-green-400 mt-0.5 flex-shrink-0" size={16} />
+                  {impact}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </motion.div>
 
       {/* Lessons Learned */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="bg-gradient-jet p-6 rounded-xl border border-jet"
-      >
-        <h2 className="text-xl font-semibold text-white-1 mb-4">Key Lessons Learned</h2>
-        <ul className="space-y-2">
-          {project.lessons.map((lesson, index) => (
-            <li key={index} className="flex items-start gap-2 text-light-gray text-sm">
-              <span className="text-orange-yellow mt-1">💡</span>
-              {lesson}
-            </li>
-          ))}
-        </ul>
-      </motion.div>
-    </div>
+      {projectData.lessons && projectData.lessons.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-gradient-jet p-6 rounded-xl border border-jet"
+        >
+          <h2 className="project-section mb-content-md">Key Lessons Learned</h2>
+          <ul className="space-y-2">
+            {projectData.lessons.map((lesson, index) => (
+              <li key={index} className="body-small flex items-start gap-2">
+                <span className="text-orange-yellow mt-1">💡</span>
+                {lesson}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
+        </>
+      )}
+
+      {/* Attachments & Downloads */}
+      {projectData.attachments && projectData.attachments.length > 0 && (
+        <motion.div
+          id="downloads-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          
+          className="bg-gradient-jet p-6 rounded-xl border border-jet"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <Download className="text-orange-yellow" size={24} />
+            <h2 className="project-section">Downloads & Resources</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {projectData.attachments.map((attachment) => {
+              const isMd = attachment.path.endsWith('.md')
+              const viewTo = isMd ? `/view?path=${encodeURIComponent(attachment.path)}` : undefined
+              return (
+                <div key={attachment.id} className="space-y-2">
+                  {isMd ? (
+                    <Link
+                      to={viewTo!}
+                      onClick={() => {
+                        try {
+                          const yKey = `scroll:project:${projectId}`
+                          sessionStorage.setItem(yKey, String(window.scrollY))
+                          sessionStorage.setItem(`${yKey}:anchor`, 'downloads-section')
+                        } catch (storageError) {
+                          console.warn('Failed to persist project scroll position', storageError)
+                        }
+                      }}
+                      className="flex items-center gap-3 p-4 bg-eerie-black-2 rounded-lg border border-jet hover:border-orange-yellow transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70"
+                    >
+                      <div className="flex-shrink-0">
+                        {attachment.type === 'document' ? <span className="text-orange-yellow">📝</span> : <span className="text-blue-400">🗎</span>}
+                      </div>
+                      <div className="flex-1">
+                        <div className="body-normal text-white-1 group-hover:text-orange-yellow transition-colors">
+                          {attachment.name}
+                        </div>
+                        {attachment.description && (
+                          <div className="body-small text-light-gray">{attachment.description}</div>
+                        )}
+                      </div>
+                      <ExternalLink className="text-light-gray group-hover:text-orange-yellow transition-colors" size={16} />
+                    </Link>
+                  ) : (
+                    <a
+                      href={attachment.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-4 bg-eerie-black-2 rounded-lg border border-jet hover:border-orange-yellow transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-yellow/70"
+                    >
+                      <div className="flex-shrink-0">
+                        {attachment.type === 'pdf' && <span className="text-red-400">📄</span>}
+                        {attachment.type === 'excel' && <span className="text-green-400">📊</span>}
+                        {attachment.type === 'image' && <span className="text-blue-400">🖼️</span>}
+                        {attachment.type === 'document' && <span className="text-orange-yellow">📝</span>}
+                      </div>
+                      <div className="flex-1">
+                        <div className="body-normal text-white-1 group-hover:text-orange-yellow transition-colors">
+                          {attachment.name}
+                        </div>
+                        {attachment.description && (
+                          <div className="body-small text-light-gray">{attachment.description}</div>
+                        )}
+                      </div>
+                      <ExternalLink className="text-light-gray group-hover:text-orange-yellow transition-colors" size={16} />
+                    </a>
+                  )}
+
+                </div>
+              )
+            })}
+          </div>
+        </motion.div>
+      )}
+    </section>
   )
 }
 

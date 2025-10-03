@@ -1,0 +1,434 @@
+{
+  "id": "intelligent-financial-close",
+  "title": "Intelligent Financial Close System",
+  "category": "Financial Analytics",
+  "type": "interactive",
+  "description": "Enterprise ML-powered financial close automation achieving 73.7% automation rate, $285K annual savings, and 280% ROI through advanced anomaly detection and predictive analytics.",
+  "tags": [
+    "Python",
+    "Machine Learning",
+    "Financial Analytics",
+    "Process Automation",
+    "ML",
+    "Statistical Analysis"
+  ],
+  "duration": "6 months",
+  "client": "Industry: Enterprise Finance",
+  "hero_image": "/images/projects/intelligent-financial-close/hero.webp",
+  "gallery": [
+    "/images/projects/intelligent-financial-close/dashboard.svg",
+    "/images/projects/intelligent-financial-close/ml.svg",
+    "/images/projects/intelligent-financial-close/results.svg"
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Project Overview",
+      "type": "content",
+      "content": {
+        "markdown": "## The Challenge\n\nTraditional month-end close processes were consuming 12+ days with manual reconciliation, reactive issue management, and high resource consumption. The finance team needed an intelligent solution to transform their close operations.\n\n### Key Pain Points:\n• 12+ day close cycles consuming 120+ hours of manual effort\n• Reactive management with issues discovered too late\n• Resource constraints with Controller and specialists overloaded\n• No real-time progress tracking or bottleneck identification\n• Error-prone manual reconciliation leading to variance detection delays\n\n### Business Impact Analysis:\n• **$165K Annual Labor Cost**: Senior Controller (40h/month × $95/h) + 2 Analysts (80h/month × $65/h) + overtime premiums\n• **$50K+ Risk Exposure**: Delayed issue identification leading to compliance risks\n• **Opportunity Cost**: Senior staff tied up in operational vs strategic work\n\n*This solution eliminated these pain points through intelligent automation.*",
+        "validated": true
+      },
+      "order": 1
+    },
+    {
+      "id": "solution",
+      "title": "The ML-Powered Solution",
+      "type": "content",
+      "content": {
+        "markdown": "## System Architecture\n\nBuilt an enterprise-grade ML-powered financial close automation system with three core components:\n\n### 🔧 **Advanced ML Reconciliation Engine**\n• Z-score anomaly detection with 2.5σ threshold\n• Predictive models achieving 87% accuracy in variance identification\n• Automated variance identification and flagging\n\n### 🤖 **Process Automation Framework**  \n• 17-task automated workflow including: journal entry validation, bank reconciliation, intercompany eliminations, and variance analysis\n• Exception handling for complex reconciliation scenarios\n• Real-time progress monitoring and bottleneck identification\n\n### 📊 **Predictive Analytics Engine**\n• SQLite database with normalized enterprise schema\n• Live KPI monitoring and executive dashboards\n• Automated reporting with detailed audit trails",
+        "validated": true
+      },
+      "order": 2
+    },
+    {
+      "id": "system-metrics",
+      "title": "System Performance Overview",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "system-metrics-dashboard",
+          "title": "System Performance Overview",
+          "type": "dashboard",
+          "dataSource": "/data/intelligent-financial-close/system-metrics.json",
+          "config": {
+            "title": "Core System Metrics",
+            "layout": "grid",
+            "widgets": [
+              {
+                "id": "transactions",
+                "title": "Transactions Processed",
+                "type": "metric",
+                "size": "small",
+                "config": {
+                  "value": "1000+",
+                  "label": "Monthly Transactions",
+                  "format": "text",
+                  "description": "GL entries processed monthly",
+                  "color": "#3b82f6"
+                }
+              },
+              {
+                "id": "ml-confidence",
+                "title": "ML Model Accuracy",
+                "type": "metric",
+                "size": "small",
+                "config": {
+                  "value": 87,
+                  "label": "Variance Detection Accuracy",
+                  "format": "percentage",
+                  "description": "ML model accuracy in identifying discrepancies",
+                  "color": "#10b981"
+                }
+              },
+              {
+                "id": "automated-tasks",
+                "title": "Automated Tasks",
+                "type": "metric",
+                "size": "small",
+                "config": {
+                  "value": 17,
+                  "label": "Automated Processes",
+                  "format": "number",
+                  "description": "Key tasks: journal validation, bank reconciliation, variance analysis",
+                  "color": "#8b5cf6"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "order": 3
+    },
+    {
+      "id": "ml-performance",
+      "title": "Machine Learning Performance",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "ml-performance-dashboard",
+          "title": "Advanced Analytics Results",
+          "type": "dashboard",
+          "dataSource": "/data/intelligent-financial-close/ml-performance.json",
+          "config": {
+            "title": "ML Model Performance Dashboard",
+            "layout": "grid",
+            "widgets": [
+              {
+                "id": "automation-rate",
+                "title": "Automation Achievement",
+                "type": "metric",
+                "size": "large",
+                "config": {
+                  "value": 73.7,
+                  "label": "Tasks Automated",
+                  "format": "percentage",
+                  "trend": {
+                    "value": 73.7,
+                    "direction": "up",
+                    "label": "Key processes: data validation, reconciliation, reporting"
+                  },
+                  "color": "#22c55e"
+                }
+              },
+              {
+                "id": "anomalies",
+                "title": "Proactive Detection",
+                "type": "metric",
+                "size": "large",
+                "config": {
+                  "value": 23,
+                  "label": "Issues Identified",
+                  "format": "number",
+                  "trend": {
+                    "value": 23,
+                    "direction": "up",
+                    "label": "Found: duplicate entries, timing differences, missing accruals"
+                  },
+                  "color": "#ef4444"
+                }
+              },
+              {
+                "id": "accounts-chart",
+                "title": "Account Risk Analysis",
+                "type": "chart",
+                "size": "full",
+                "config": {
+                  "library": "recharts",
+                  "chartType": "bar",
+                  "title": "Accounts Processed by Risk Level",
+                  "xAxisKey": "account_type",
+                  "yAxisKey": "count",
+                  "colors": [
+                    "#22c55e",
+                    "#f59e0b",
+                    "#ef4444",
+                    "#dc2626"
+                  ],
+                  "showGrid": true,
+                  "showLegend": false
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "order": 4
+    },
+    {
+      "id": "financial-analysis",
+      "title": "Financial Impact Analysis",
+      "type": "content",
+      "content": {
+        "markdown": "## ROI Calculation Methodology\n\n**Pre-Implementation Annual Costs:**\n• Senior Controller: 40 hours/month × $95/hour = **$45,600**\n• Financial Analysts (2): 80 hours/month × $65/hour = **$62,400** \n• Overtime premiums (15%): **$16,200**\n• External contractors: **$28,800**\n• Error correction costs: **$12,000**\n• **Total Baseline Cost: $165,000**\n\n**Post-Implementation Savings:**\n• Labor reduction (73.7% automation): **$120,600**\n• Eliminated overtime premiums: **$16,200**\n• Reduced contractor dependency (60%): **$17,280**\n• Error reduction (85%): **$10,200**\n• Productivity gains & risk reduction: **$120,720**\n• **Total Annual Savings: $285,000**\n\n### Return on Investment\n• **Implementation Cost**: $75,000 (one-time)\n• **Net Annual Benefit**: $210,000 ($285K savings - $75K amortized)\n• **ROI Percentage**: 280% (($210,000 ÷ $75,000) × 100)\n• **Payback Period**: 3.2 months\n\n*All calculations based on documented operational improvements.*",
+        "validated": true
+      },
+      "order": 5
+    },
+    {
+      "id": "business-results",
+      "title": "Quantified Business Results",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "business-results-dashboard",
+          "title": "Financial Impact Dashboard",
+          "type": "dashboard",
+          "dataSource": "/data/intelligent-financial-close/business-impact.json",
+          "config": {
+            "title": "Business Impact Metrics",
+            "layout": "grid",
+            "widgets": [
+              {
+                "id": "annual-savings",
+                "title": "Total Annual Savings",
+                "type": "metric",
+                "size": "medium",
+                "config": {
+                  "value": 285000,
+                  "label": "Annual Savings",
+                  "format": "currency",
+                  "trend": {
+                    "value": 285000,
+                    "direction": "up",
+                    "label": "Labor, risk reduction, and efficiency gains"
+                  },
+                  "color": "#22c55e"
+                }
+              },
+              {
+                "id": "roi-metric",
+                "title": "Return on Investment",
+                "type": "metric",
+                "size": "medium",
+                "config": {
+                  "value": 280,
+                  "label": "ROI Percentage",
+                  "format": "percentage",
+                  "trend": {
+                    "value": 280,
+                    "direction": "up",
+                    "label": "3.2-month payback period"
+                  },
+                  "color": "#3b82f6"
+                }
+              },
+              {
+                "id": "time-savings",
+                "title": "Efficiency Improvement",
+                "type": "metric",
+                "size": "medium",
+                "config": {
+                  "value": 432,
+                  "label": "Hours Saved Annually",
+                  "format": "number",
+                  "trend": {
+                    "value": 432,
+                    "direction": "up",
+                    "label": "36 hours saved per cycle × 12 cycles"
+                  },
+                  "color": "#10b981"
+                }
+              },
+              {
+                "id": "timeline-chart",
+                "title": "Close Timeline Improvement",
+                "type": "chart",
+                "size": "full",
+                "config": {
+                  "library": "recharts",
+                  "chartType": "line",
+                  "title": "Close Timeline: Before vs After Implementation",
+                  "xAxisKey": "day",
+                  "yAxisKey": [
+                    "Before",
+                    "After"
+                  ],
+                  "colors": [
+                    "#ef4444",
+                    "#22c55e"
+                  ],
+                  "showGrid": true,
+                  "showLegend": true,
+                  "xAxisLabel": "Days from Month-End",
+                  "yAxisLabel": "Completion Percentage (%)"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "order": 6
+    },
+    {
+      "id": "roi-calculator",
+      "title": "ROI Calculator",
+      "type": "interactive",
+      "components": [
+        {
+          "id": "financial-close-calculator",
+          "title": "Financial Close Automation ROI Calculator",
+          "type": "calculator",
+          "config": {
+            "type": "roi",
+            "title": "Calculate Financial Close Automation ROI",
+            "description": "Estimate potential savings from automating your month-end close process based on the results shown above.",
+            "fields": [
+              {
+                "id": "current_close_hours",
+                "label": "Current Close Duration (Hours)",
+                "type": "number",
+                "defaultValue": 120,
+                "min": 50,
+                "max": 300,
+                "step": 10,
+                "description": "Total staff hours for monthly close cycle",
+                "tooltip": "Average team hours to complete a monthly close."
+              },
+              {
+                "id": "avg_hourly_cost",
+                "label": "Blended Hourly Cost ($/hour)",
+                "type": "currency",
+                "defaultValue": 75,
+                "min": 45,
+                "max": 150,
+                "step": 5,
+                "description": "Average cost including benefits & overhead",
+                "tooltip": "Average fully loaded hourly cost for your team."
+              },
+              {
+                "id": "error_frequency",
+                "label": "Monthly Reconciliation Issues",
+                "type": "number",
+                "defaultValue": 12,
+                "min": 3,
+                "max": 50,
+                "step": 1,
+                "description": "Discrepancies requiring manual investigation",
+                "tooltip": "Average exceptions per month that need investigation. The model applies a typical per-issue handling cost."
+              },
+              {
+                "id": "automation_rate",
+                "label": "Target Automation Level (%)",
+                "type": "percentage",
+                "defaultValue": 70,
+                "min": 50,
+                "max": 85,
+                "step": 5,
+                "description": "Expected task automation (reference: 73.7%)",
+                "tooltip": "Estimated portion of the close you can automate."
+              },
+              {
+                "id": "solution_investment",
+                "label": "Solution Investment ($)",
+                "type": "currency",
+                "defaultValue": 75000,
+                "min": 5000,
+                "max": 200000,
+                "step": 5000,
+                "description": "One-time development & implementation cost",
+                "tooltip": "One-time cost to implement and integrate the solution."
+              }
+            ],
+            "formula": "((current_close_hours * avg_hourly_cost * 12) + (error_frequency * 250 * 12)) * (automation_rate/100) - solution_investment",
+            "resultFormat": "currency",
+            "resultLabel": "First-Year Net Savings",
+            "additionalOutputs": [
+              {
+                "id": "annual_gross_savings",
+                "label": "Annual Gross Savings",
+                "formula": "((current_close_hours * avg_hourly_cost * 12) + (error_frequency * 250 * 12)) * (automation_rate/100)",
+                "format": "currency"
+              },
+              {
+                "id": "break_even_investment",
+                "label": "Max Justifiable Investment (Year 1)",
+                "formula": "((current_close_hours * avg_hourly_cost * 12) + (error_frequency * 250 * 12)) * (automation_rate/100)",
+                "format": "currency"
+              },
+              {
+                "id": "roi_multiple",
+                "label": "ROI Multiple",
+                "formula": "(((current_close_hours * avg_hourly_cost * 12) + (error_frequency * 250 * 12)) * (automation_rate/100)) / solution_investment",
+                "format": "multiplier"
+              },
+              {
+                "id": "payback_months",
+                "label": "Payback Period (Months)",
+                "formula": "solution_investment / ((((current_close_hours * avg_hourly_cost * 12) + (error_frequency * 250 * 12)) * (automation_rate/100)) / 12)",
+                "format": "decimal"
+              }
+            ]
+          }
+        }
+      ],
+      "order": 7
+    }
+  ],
+  "datasets": [
+    {
+      "id": "system-metrics",
+      "name": "System Performance Metrics",
+      "path": "/data/intelligent-financial-close/system-metrics.json",
+      "type": "json",
+      "description": "Core system performance and achievement metrics"
+    },
+    {
+      "id": "ml-performance",
+      "name": "ML Model Performance Data",
+      "path": "/data/intelligent-financial-close/ml-performance.json",
+      "type": "json",
+      "description": "Machine learning model accuracy and performance data"
+    },
+    {
+      "id": "business-impact",
+      "name": "Business Impact Metrics",
+      "path": "/data/intelligent-financial-close/business-impact.json",
+      "type": "json",
+      "description": "Quantified business results and ROI calculations"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "technical-specification",
+      "name": "Technical Architecture Guide",
+      "path": "/downloads/intelligent-financial-close-technical-spec.md",
+      "type": "document",
+      "description": "Complete technical specification and implementation details"
+    },
+    {
+      "id": "case-study",
+      "name": "Complete Case Study",
+      "path": "/downloads/intelligent-financial-close-case-study.md",
+      "type": "document",
+      "description": "Comprehensive case study with detailed ROI methodology"
+    },
+    {
+      "id": "source-code",
+      "name": "Source Code Repository",
+      "path": "/downloads/intelligent-financial-close-source-code.md",
+      "type": "document",
+      "description": "Python implementation examples and framework code"
+    }
+  ]
+}
