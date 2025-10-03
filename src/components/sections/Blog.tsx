@@ -130,8 +130,8 @@ const Blog = () => {
     <section className="space-y-8" aria-labelledby="blog-title">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <h2 id="blog-title" className="page-title text-left">Blog</h2>

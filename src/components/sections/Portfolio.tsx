@@ -189,8 +189,8 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
     <section className="space-y-8" aria-labelledby="portfolio-title">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <h2 id="portfolio-title" className="page-title text-left">Portfolio</h2>
@@ -200,8 +200,8 @@ const Portfolio = ({ selectedProject, setSelectedProject }: PortfolioProps) => {
 
       {/* Filters */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         role="group"
         aria-label="Project categories"
