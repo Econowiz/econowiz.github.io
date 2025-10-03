@@ -1,69 +1,125 @@
-# React + TypeScript + Vite
+# Data-Driven Finance Strategist Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![pnpm](https://img.shields.io/badge/PNPM-4040B2?style=for-the-badge&logo=pnpm&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Interactive finance + analytics portfolio showcasing automation workflows, real-time insights, and technical storytelling.**
 
-## Expanding the ESLint configuration
+[🌐 Live Site](https://econowiz.github.io) • [🧠 Blog](https://econowiz.github.io/#/blog) • [🛠️ Setup](#-getting-started)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+</div>
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ✨ What’s inside
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🚀 Modular project showcase
+- Projects are defined in data files (`public/data/projects/**`) so you can plug in finance cases, analytics prototypes, or ops dashboards without touching the components.
+- Attachment/download support via Markdown documents and datasets per project.
+
+### 🧭 Analytics writing & knowledge base
+- Blog articles live under `public/data/blog/<slug>` with Markdown + metadata, rendered through a reusable Markdown viewer.
+- Designed for long-form narratives, technical deep dives, or lightweight release notes.
+
+### 🧱 Modern technical stack
+- React 19 + TypeScript + Vite 7.
+- Tailwind utility layer and Framer Motion micro-interactions.
+- Plotly + Recharts visualizations loaded lazily for performance.
+- EmailJS integration behind environment validation.
+
+---
+
+## 🛠 Getting started
+
+```bash
+# Clone your fork (or this repo)
+git clone https://github.com/Econowiz/econowiz.github.io.git
+cd econowiz.github.io
+
+# Install deps
+pnpm install
+
+# Run locally
+pnpm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) and you’re live. The default content points at the Intelligent Financial Close project and two long-form articles.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+> **Environment variables** – EmailJS keys are optional locally. In CI/production the build fails if placeholders are used. Set `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, and `VITE_EMAILJS_PUBLIC_KEY` if you need the contact form.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🧩 Customising
+
+| Area | Location | Notes |
+|------|----------|-------|
+| Profile copy | `src/components/Sidebar.tsx` & `src/components/sections/About.tsx` | Update headline, availability, and intro paragraph. |
+| Projects | `public/data/projects/**` | Each project owns a `metadata.json`, Markdown, datasets, and downloads. Currently only the Intelligent Financial Close system is shipped. |
+| Blog | `public/data/blog/<slug>/{metadata.json,content.md}` | Add new articles by duplicating a folder and referencing it in `public/data/blog/index.json`. |
+| Assets | `public/images/**` | Store hero images per slug (blog) or project. |
+| Theme | `src/index.css`, `src/styles/typography.css`, `tailwind.config.js` | Typography, palette, spacing, etc. |
+
+### Template version
+I’m preparing a stripped-down “starter kit” (sans personal data) so others can adapt the layout quickly. Until that repository is published, you can:
+1. Fork this repo.
+2. Delete `public/data/blog/*` and replace with your own Markdown.
+3. Replace `public/data/projects/**` with your case studies.
+4. Update copy and assets as above.
+
+When the template repository is live, the README will be updated with a direct link and the one-click “Use this template” badge.
+
+---
+
+## 📦 Project structure
+
 ```
+│
+├── public/
+│   ├── data/                  # Blog + project metadata
+│   ├── downloads/             # Markdown documents for case study attachments
+│   └── images/                # Hero artwork per slug/project
+│
+├── src/
+│   ├── components/
+│   │   ├── sections/          # About, Blog, Portfolio, Contact
+│   │   ├── interactive/       # Plotly/Recharts dashboards, calculators
+│   │   ├── shared/            # UnifiedCard, category styles, etc.
+│   │   └── pages/             # MarkdownViewPage
+│   ├── data/                  # Typed JSON references
+│   ├── styles/                # Tailwind extensions & typography
+│   └── polyfills/             # Buffer polyfill for Plotly dependencies
+│
+└── .github/workflows/         # CI + GitHub Pages deployment
+```
+
+---
+
+## 🔁 Deployments & CI
+- **GitHub Pages:** `.github/workflows/deploy.yml` builds the site on pushes to `main` (requires EmailJS secrets when enabled).
+- **pages.yml:** Handles the official Pages deployment after artifacts upload.
+- `pnpm run build` must succeed locally before pushing – large bundle warnings are expected but should stay under control.
+
+---
+
+## 🤝 Contributions
+Suggestions, bug fixes, or requests for the upcoming template repo are welcome. Open an issue or a PR:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/my-update`)
+3. Commit (`git commit -m 'Add my update'`)
+4. Push and open a pull request
+
+---
+
+## 📄 License & attribution
+
+Licensed under the [MIT License](LICENSE). Feel free to reuse components or configuration with attribution.
+
+Built with ❤️ by [Franck](https://github.com/econowiz)
+
+
+> ⭐ **If this project helps you, please star the repository.**
