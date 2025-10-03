@@ -212,7 +212,7 @@ const Sidebar = () => {
         </div>
 
         <div className="border-t border-jet opacity-60 my-5" />
-        <p className="nav-text text-center text-light-gray mb-1">© {new Date().getFullYear()} Franck Rafiou</p>
+        <p className="nav-text text-center text-light-gray mb-1">© {new Date().getFullYear()} Franck Rafiou-Doué</p>
 
       </div>
     </motion.aside>
