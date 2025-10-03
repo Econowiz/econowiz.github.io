@@ -80,7 +80,10 @@ export function getEmailJSConfig(throwOnError: boolean = false): EmailJSConfig |
       throw new Error(errorMessage)
     }
     
-    console.warn(errorMessage)
+    // In development, only log once or when specifically requested
+    if (import.meta.env.PROD || import.meta.env.VITE_DEBUG_EMAIL === 'true') {
+      console.warn(errorMessage)
+    }
     return null
   }
   

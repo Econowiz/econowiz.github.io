@@ -7,13 +7,22 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
+        // Atkinson Hyperlegible handles all body copy
+        sans: ['Atkinson Hyperlegible', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        // Fraunces reserved for the sidebar nameplate
+        heading: ['Fraunces', 'serif'],
+      },
+      fontSize: {
+        // Custom heading scale used across typography utilities
+        'heading-md': ['1.875rem', { lineHeight: '1.35' }], // 30px
+        'heading-sm': ['1.5rem', { lineHeight: '1.4' }],   // 24px
+        'heading-xs': ['1.25rem', { lineHeight: '1.45' }], // 20px
       },
       colors: {
         // vCard color palette from original CSS
         'jet': 'hsl(0, 0%, 22%)',
         'onyx': 'hsl(240, 1%, 17%)',
-        'eerie-black-1': 'hsl(240, 2%, 13%)',
+        'eerie-black-1': '#0b0b0b',
         'eerie-black-2': 'hsl(240, 2%, 12%)',
         'smoky-black': 'hsl(0, 0%, 7%)',
         'white-1': 'hsl(0, 0%, 100%)',
@@ -35,16 +44,16 @@ export default {
         'vcard-1': '-4px 8px 24px hsla(0, 0%, 0%, 0.25)',
         'vcard-2': '0 16px 30px hsla(0, 0%, 0%, 0.25)',
       },
-      fontSize: {
-        'vcard-1': '24px',
-        'vcard-2': '18px',
-        'vcard-3': '17px',
-        'vcard-4': '16px',
-        'vcard-5': '15px',
-        'vcard-6': '14px',
-        'vcard-7': '13px',
-        'vcard-8': '11px',
+      // Consistent spacing system
+      spacing: {
+        'section-lg': '4rem', // 64px - Large section spacing
+        'section-md': '3rem', // 48px - Medium section spacing  
+        'section-sm': '2rem', // 32px - Small section spacing
+        'content-lg': '1.5rem', // 24px - Large content spacing
+        'content-md': '1rem', // 16px - Medium content spacing
+        'content-sm': '0.75rem', // 12px - Small content spacing
       },
+
     },
   },
   plugins: [
