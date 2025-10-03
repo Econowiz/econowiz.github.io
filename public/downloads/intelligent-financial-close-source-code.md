@@ -279,6 +279,10 @@ python -m pytest tests/integration/ -v
 
 ---
 
-*Note: This is a simplified version of the actual source code for demonstration purposes. The complete implementation includes additional error handling, logging, security measures, and optimization features.*
+*Note: This is a simplified snapshot for reference. The complete, production-ready
+source code (including tooling, documentation, and synthetic demo data) is
+available on GitHub:*
 
-*For the full source code repository, please contact: franck@aethelstone.com*
+👉 **https://github.com/Econowiz/intelligent-financial-close**
+
+*Email: franck@aethelstone.com*
